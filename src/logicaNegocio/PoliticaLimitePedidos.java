@@ -12,13 +12,14 @@ import java.util.Map;
  */
 public class PoliticaLimitePedidos implements PoliticaAceptacion {
     private int limite;
-    
-    public PoliticaLimitePedidos(int limite) {
+    private int stock;
+    public PoliticaLimitePedidos(int limite, int stock) {
         this.limite = limite;
+        this.stock = stock;
     }
 
     @Override
     public boolean acepta(Comida comida) {
-        return stock.size() < limite;
+        return stock < limite;
     }
 }
