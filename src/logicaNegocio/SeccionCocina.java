@@ -14,10 +14,10 @@ import java.util.Map;
  * @author EduPiry
  */
 public class SeccionCocina {
-    private String nombre;
-    private PoliticaAceptacion politica;
-    private Map<Ingrediente, Integer> stockIngredientes;
-    private List<Receta> recetasPendientes;
+    protected String nombre;
+    protected PoliticaAceptacion politica;
+    protected Map<Ingrediente, Integer> stockIngredientes;
+    protected List<Receta> recetasPendientes;
 
     public SeccionCocina(String nombre, PoliticaAceptacion politica) {
         this.nombre = nombre;

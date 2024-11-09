@@ -11,7 +11,7 @@ package logicaNegocio;
 public class SeccionLimitePedidos extends SeccionCocina {
     private static final int LIMITE_PEDIDOS = 15;
 
-    public SeccionLimitePedidos() {
-        super("Con Límite de Pedidos", new PoliticaLimitePedidos(LIMITE_PEDIDOS));
+    public SeccionLimitePedidos(int recetasPendientes) {
+        super("Con Límite de Pedidos", new PoliticaLimitePedidos(LIMITE_PEDIDOS,recetasPendientes));
     }
 }
