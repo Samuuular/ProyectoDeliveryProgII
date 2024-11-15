@@ -9,13 +9,15 @@ package logicaNegocio;
  * @author EduPiry
  */
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GestionRecetas {
-    private List<Receta> recetas;
+    private Set<Receta> recetas;
 
     public GestionRecetas() {
-        this.recetas = new ArrayList<>();
+        this.recetas = new HashSet();
     }
 
     public void agregarReceta(Receta receta) {
@@ -41,13 +43,15 @@ public class GestionRecetas {
         }
     }
 
-    public List<Receta> getRecetas() {
+    public Set<Receta> getRecetas() {
         return recetas;
     }
 
-    public void setRecetas(List<Receta> recetas) {
+    public void setRecetas(Set<Receta> recetas) {
         this.recetas = recetas;
     }
+
+    
     
 }
 

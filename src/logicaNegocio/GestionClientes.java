@@ -8,43 +8,39 @@ package logicaNegocio;
  *
  * @author EduPiry
  */
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class GestionClientes {
 
-    private Map<String, Cliente> clientes;
+    private Set<Cliente> clientes;
 
     public GestionClientes() {
-        this.clientes = new HashMap<>();
+        this.clientes = new HashSet();
     }
 
     public void registrarCliente(String nombre, String direccion) {
-        if (!clientes.containsKey(nombre)) {
-            Cliente nuevoCliente = new Cliente(nombre, direccion);
-            clientes.put(nombre, nuevoCliente);
-        } else {
-            System.out.println("El cliente con el nombre " + nombre + " ya está registrado.");
-        }
+        Cliente nuevoCliente = new Cliente(nombre, direccion);
+        clientes.add(nuevoCliente);
     }
 
-    public Cliente consultarCliente(String nombre) {
-        return clientes.get(nombre);
-    }
-
-    public Map<String, Cliente> getClientes() {
+    public Set<Cliente> getClientes() {
         return clientes;
     }
 
-    public void setClientes(Map<String, Cliente> clientes) {
+    public void setClientes(Set<Cliente> clientes) {
         this.clientes = clientes;
     }
+
+    
 
     public void mostrarClientes() {
         if (clientes.isEmpty()) {
             System.out.println("No hay clientes registrados.");
         } else {
-            for (Cliente cliente : clientes.values()) {
+            for (Cliente cliente : clientes) {
                 System.out.println(cliente);
             }
         }

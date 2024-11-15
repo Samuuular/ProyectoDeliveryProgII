@@ -38,10 +38,10 @@ public class GestionPedidos {
         }
     }
 
-    public List<Pedido> obtenerPedidosPorEstado(String estado) {
+    public List<Pedido> obtenerPedidosPorEstado(boolean estado) {
         List<Pedido> pedidosPorEstado = new ArrayList<>();
         for (Pedido pedido : pedidos) {
-            if (pedido.getEstado().equalsIgnoreCase(estado)) {
+            if (pedido.getEstado()==estado) {
                 pedidosPorEstado.add(pedido);
             }
         }

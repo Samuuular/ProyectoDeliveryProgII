@@ -14,14 +14,14 @@ import java.util.List;
 public class Pedido {
     private Cliente cliente;
     private List<Comida> comidas;
-    private String estado; //pendientes, en preparacion o completados
+    private boolean estado; //pendientes o completados
 
     //Constructor
 
     public Pedido(Cliente cliente) {
             this.cliente = cliente;
             this.comidas = new ArrayList<>();
-            this.estado = "pendiente";
+            this.estado = false;
     }
 
     //Metodos
@@ -42,14 +42,6 @@ public class Pedido {
             return total;
     }
 
-    public void cambiarEstado(String nuevoEstado) {
-            if (nuevoEstado.equals("pendiente") || nuevoEstado.equals("en preparacion") || nuevoEstado.equals("completado")) {
-                    this.estado = nuevoEstado;
-            }
-            else {
-                    System.out.println("Estado no valido");
-            }
-    }
 
     //Getters y Setters
 
@@ -69,11 +61,11 @@ public class Pedido {
             this.comidas = comidas;
     }
 
-    public String getEstado() {
+    public boolean getEstado() {
             return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
             this.estado = estado;
     }
 
