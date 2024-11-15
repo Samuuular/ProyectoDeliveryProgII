@@ -48,7 +48,7 @@ public class Ingrediente {
         if (cantidadEnStock >= cantidadUsada) {
             cantidadEnStock -= cantidadUsada;
         } else {
-            System.out.println("No hay suficiente " + nombre + " en el stock.");
+            throw new IllegalArgumentException("No hay suficiente " + nombre + " en el stock.");
         }
     }
 

@@ -8,13 +8,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList; 
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author EduPiry
  */
 public class Receta {
-    private Map<Ingrediente, Integer> ingredientes;
+    private Set<Ingrediente> ingredientes;
     private int tiempoCoccion;
     private boolean modoPreparacion;
     private String tipo; 
@@ -22,8 +24,8 @@ public class Receta {
     private List<Receta> recetasDependientes;
     private String nombre;
 
-    public Receta(Map<Ingrediente, Integer> ingredientes, int tiempoCoccion, boolean modoPreparacion, String tipo, String complejidad, List<Receta> recetasDependientes, String nombre) {
-        this.ingredientes = ingredientes;
+    public Receta(Set<Ingrediente> ingredientes, int tiempoCoccion, boolean modoPreparacion, String tipo, String complejidad, List<Receta> recetasDependientes, String nombre) {
+        this.ingredientes = new HashSet<>();
         this.tiempoCoccion = tiempoCoccion;
         this.modoPreparacion = modoPreparacion;
         this.tipo = tipo;
@@ -43,11 +45,11 @@ public class Receta {
     
     
 
-    public Map<Ingrediente, Integer> getIngredientes() {
+    public Set<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(Map<Ingrediente, Integer> ingredientes) {
+    public void setIngredientes(Set<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
@@ -98,10 +100,8 @@ public class Receta {
     }
     public double calcularPrecio() {
         double precio = 0;
-        for (Map.Entry<Ingrediente, Integer> entry : ingredientes.entrySet()) {
-            Ingrediente ingrediente = entry.getKey();
-            Integer cantidad = entry.getValue();
-            precio += ingrediente.getCosto() * cantidad; 
+        for (Ingrediente ingrediente : ingredientes) {
+            precio += ingrediente.getCosto()*ingrediente.getCantidadEnStock();
         }
 
         switch (tipo) {

@@ -5,7 +5,10 @@
 package logicaNegocio;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -13,34 +16,36 @@ import java.util.Map;
  */
 
 public class GestionIngredientes {
-    private Map<String, Ingrediente> ingredientes;
+    private Set<Ingrediente> ingredientes;
 
     public GestionIngredientes() {
-        this.ingredientes = new HashMap<>();
+        this.ingredientes = new HashSet<>();
     }
 
     public void registrarIngrediente(String nombre, double costo, int cantidadEnStock) {
-        if (ingredientes.containsKey(nombre)) {
-            System.out.println("El ingrediente " + nombre + " ya está registrado.");
-        } else {
-            Ingrediente ingrediente = new Ingrediente(nombre, costo, cantidadEnStock);
-            ingredientes.put(nombre, ingrediente);
-            System.out.println("Ingrediente registrado: " + nombre);
-        }
+        
+        Ingrediente ingrediente = new Ingrediente(nombre, costo, cantidadEnStock);
+        ingredientes.add(ingrediente);
+        System.out.println("Ingrediente registrado: " + nombre);
+        
     }
 
     // Actualiza el stock de un ingrediente al aceptar un pedido
-    public void actualizarStock(String nombre, int cantidad) {
-        Ingrediente ingrediente = ingredientes.get(nombre);
-        if (ingrediente != null) {
-            if (ingrediente.getCantidadEnStock() >= cantidad) {
-                ingrediente.actualizarStock(cantidad);
-                System.out.println("Stock de " + nombre + " actualizado. Cantidad restante: " + ingrediente.getCantidadEnStock());
-            } else {
-                System.out.println("No hay suficiente stock de " + nombre + " para esta operación.");
+    public void actualizarStockGestion(Comida comida) {
+        Iterator<Ingrediente> iterator = ingredientes.iterator();
+
+        while (iterator.hasNext()) {
+            Ingrediente ingredienteRestaurante = iterator.next();
+
+            for (Ingrediente ingrediente : comida.getReceta().getIngredientes()) {
+                if (ingredienteRestaurante.getNombre().equalsIgnoreCase(ingrediente.getNombre())) {
+                    ingredienteRestaurante.actualizarStock(ingrediente.getCantidadEnStock());
+
+                    if (ingredienteRestaurante.getCantidadEnStock() <= 0) {
+                        iterator.remove();
+                    }
+                }
             }
-        } else {
-            System.out.println("El ingrediente " + nombre + " no está registrado.");
         }
     }
 
@@ -50,7 +55,7 @@ public class GestionIngredientes {
             System.out.println("No hay ingredientes registrados.");
         } else {
             System.out.println("Ingredientes registrados:");
-            for (Ingrediente ingrediente : ingredientes.values()) {
+            for (Ingrediente ingrediente : ingredientes) {
                 System.out.println(ingrediente);
             }
         }

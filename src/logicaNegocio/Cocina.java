@@ -33,9 +33,9 @@ public class Cocina {
         System.out.println("No se pudo asignar " + comida.getNombre() + " a ninguna sección.");
     }
 
-    public void mostrarEstadoSecciones() {
+    public void mostrarSecciones() {
         for (SeccionCocina seccion : secciones) {
-            System.out.println("Sección: " + seccion.getNombre() + ", Stock: " + seccion.getStockIngredientes());
+            System.out.println("Sección: " + seccion.getNombre());
         }
     }
 }
