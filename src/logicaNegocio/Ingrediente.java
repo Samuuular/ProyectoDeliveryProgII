@@ -12,12 +12,23 @@ public class Ingrediente {
     private String nombre;
     private double costo;
     private int cantidadEnStock;
+    private int cantidadNecesaria;
 
     public Ingrediente(String nombre, double costo, int cantidadEnStock) {
         this.nombre = nombre;
         this.costo = costo;
         this.cantidadEnStock = cantidadEnStock;
     }
+
+    public int getCantidadNecesaria() {
+        return cantidadNecesaria;
+    }
+
+    public void setCantidadNecesaria(int cantidadNecesaria) {
+        this.cantidadNecesaria = cantidadNecesaria;
+    }
+    
+    
 
     public String getNombre() {
         return nombre;

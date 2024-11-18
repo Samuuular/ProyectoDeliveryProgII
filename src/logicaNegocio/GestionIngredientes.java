@@ -39,7 +39,7 @@ public class GestionIngredientes {
 
             for (Ingrediente ingrediente : comida.getReceta().getIngredientes()) {
                 if (ingredienteRestaurante.getNombre().equalsIgnoreCase(ingrediente.getNombre())) {
-                    ingredienteRestaurante.actualizarStock(ingrediente.getCantidadEnStock());
+                    ingredienteRestaurante.actualizarStock(ingrediente.getCantidadNecesaria());
 
                     if (ingredienteRestaurante.getCantidadEnStock() <= 0) {
                         iterator.remove();
