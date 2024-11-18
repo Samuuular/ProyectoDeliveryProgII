@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @author EduPiry
  */
-public class SeccionCocina {
+public abstract class SeccionCocina {
     protected String nombre;
     protected PoliticaAceptacion politica;
     protected GestionIngredientes ingredientes;
