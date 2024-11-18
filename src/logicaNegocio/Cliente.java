@@ -4,11 +4,14 @@
  */
 package logicaNegocio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author EduPiry
  */
-public class Cliente {
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 2L;
     private String nombre;
     private String direccion;
     //Constructor
