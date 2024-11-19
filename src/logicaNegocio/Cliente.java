@@ -12,13 +12,17 @@ import java.io.Serializable;
  */
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 2L;
+    private int id;
     private String nombre;
     private String direccion;
     //Constructor
-    public Cliente(String nombre, String direccion) {
-            this.nombre = nombre;
-            this.direccion = direccion;
+
+    public Cliente(int id, String nombre, String direccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
     }
+    
 
     //Getters y Setters
     public String getNombre() {
@@ -32,6 +36,14 @@ public class Cliente implements Serializable {
     }
     public void setDireccion(String direccion) {
             this.direccion = direccion;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     //To String

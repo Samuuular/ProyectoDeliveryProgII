@@ -15,24 +15,26 @@ import java.util.Set;
 
 public class GestionClientes {
 
-    private Set<Cliente> clientes;
+    private List<Cliente> clientes;
 
     public GestionClientes() {
-        this.clientes = new HashSet();
+        this.clientes = new ArrayList();
     }
 
-    public void registrarCliente(String nombre, String direccion) {
-        Cliente nuevoCliente = new Cliente(nombre, direccion);
+    public void registrarCliente(int id, String nombre, String direccion) {
+        Cliente nuevoCliente = new Cliente(id, nombre, direccion);
         clientes.add(nuevoCliente);
     }
 
-    public Set<Cliente> getClientes() {
+    public List<Cliente> getClientes() {
         return clientes;
     }
 
-    public void setClientes(Set<Cliente> clientes) {
+    public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
+
+    
 
     
 
