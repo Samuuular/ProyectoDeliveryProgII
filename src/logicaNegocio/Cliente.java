@@ -22,6 +22,11 @@ public class Cliente implements Serializable {
         this.nombre = nombre;
         this.direccion = direccion;
     }
+
+    public Cliente() {
+    }
+    
+    
     
 
     //Getters y Setters

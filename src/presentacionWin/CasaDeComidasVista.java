@@ -4,17 +4,31 @@
  */
 package presentacionWin;
 
+import accesoDatos.AccesoDatos;
+import logicaNegocio.Logica;
+
 /**
  *
  * @author EduPiry
  */
 public class CasaDeComidasVista extends javax.swing.JFrame {
 
+    private final String filePathPedidos = "Pedidos.txt";
+    private final String filePathClientes = "Clientes.txt";
+    private final String filePathRecetas = "Recetas.txt";
+    private final String filePathRecetasPendientes = "RecetasPendientes.txt";
+    private final String filePathIngredientes = "Ingredientes.txt";
+    private final String filePathComidas = "Comidas.txt";
+    private final String filePathSeccionesCocinas = "Secciones.txt";
+    private Logica logica;
+    private AccesoDatos acceso;
     /**
      * Creates new form CasaDeComidasVista
      */
     public CasaDeComidasVista() {
         initComponents();
+        acceso = new AccesoDatos(filePathPedidos, filePathClientes, filePathRecetas, filePathRecetasPendientes, filePathIngredientes, filePathComidas, filePathSeccionesCocinas);
+        logica = new Logica(acceso);
     }
 
     /**
@@ -26,7 +40,7 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDEscritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -39,20 +53,25 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDEscritorioLayout = new javax.swing.GroupLayout(jDEscritorio);
+        jDEscritorio.setLayout(jDEscritorioLayout);
+        jDEscritorioLayout.setHorizontalGroup(
+            jDEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDEscritorioLayout.setVerticalGroup(
+            jDEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Registros");
 
         jMenuItem1.setText("Cliente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Pedido");
@@ -81,15 +100,25 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDEscritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDEscritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        jDEscritorio.removeAll();
+        jDEscritorio.repaint();
+        ClienteVista cv = new ClienteVista(logica);
+        cv.setVisible(true);
+        jDEscritorio.add(cv);
+        jDEscritorio.moveToFront(cv);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,7 +156,7 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private static javax.swing.JDesktopPane jDEscritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -138,4 +167,10 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
+    
+    public static javax.swing.JDesktopPane obtenerEscritorio(){
+        return jDEscritorio;
+    }
+
+
 }

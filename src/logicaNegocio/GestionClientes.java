@@ -20,8 +20,8 @@ public class GestionClientes {
         this.clientes = new ArrayList();
     }
 
-    public void registrarCliente(int id, String nombre, String direccion) {
-        Cliente nuevoCliente = new Cliente(id, nombre, direccion);
+    public void registrarCliente(Cliente nuevoCliente) {
+        
         clientes.add(nuevoCliente);
     }
 
