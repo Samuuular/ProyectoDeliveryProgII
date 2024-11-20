@@ -19,7 +19,7 @@ import java.util.Set;
 public class Receta implements Serializable{
     private static final long serialVersionUID = 2L;
     private List<Ingrediente> ingredientes;
-    private int tiempoCoccion;
+    private int tiempoCoccion; //EN MINUTOS
     private boolean modoPreparacion;
     private String tipo; 
     private String complejidad; 
