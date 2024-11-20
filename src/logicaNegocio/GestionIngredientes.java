@@ -4,9 +4,11 @@
  */
 package logicaNegocio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,10 +18,10 @@ import java.util.Set;
  */
 
 public class GestionIngredientes {
-    private Set<Ingrediente> ingredientes;
+    private List<Ingrediente> ingredientes;
 
     public GestionIngredientes() {
-        this.ingredientes = new HashSet<>();
+        this.ingredientes = new ArrayList<>();
     }
 
     public void registrarIngrediente(String nombre, double costo, int cantidadEnStock) {
@@ -30,7 +32,6 @@ public class GestionIngredientes {
         
     }
 
-    // Actualiza el stock de un ingrediente al aceptar un pedido
     public void actualizarStockGestion(Comida comida) {
         Iterator<Ingrediente> iterator = ingredientes.iterator();
 

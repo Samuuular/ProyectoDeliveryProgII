@@ -14,6 +14,7 @@ import java.util.List;
 public class Pedido {
     private Cliente cliente;
     private List<Comida> comidas;
+    private double precio;
     private boolean estado; //pendientes o completados
 
     //Constructor
@@ -35,11 +36,12 @@ public class Pedido {
     }
 
     public double calcularPedido() {
-            double total = 0;
-            for (Comida comida : comidas) {
-                    total += comida.getPrecio();
-            }
-            return total;
+        precio = 0;
+        for (Comida comida : comidas) {
+            precio += comida.calcularPrecio();
+        }
+        
+        return precio;
     }
 
 

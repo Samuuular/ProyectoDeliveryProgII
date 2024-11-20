@@ -16,7 +16,7 @@ import java.util.Set;
  * @author EduPiry
  */
 public class Receta {
-    private Set<Ingrediente> ingredientes;
+    private List<Ingrediente> ingredientes;
     private int tiempoCoccion;
     private boolean modoPreparacion;
     private String tipo; 
@@ -24,8 +24,8 @@ public class Receta {
     private List<Receta> recetasDependientes;
     private String nombre;
 
-    public Receta(Set<Ingrediente> ingredientes, int tiempoCoccion, boolean modoPreparacion, String tipo, String complejidad, List<Receta> recetasDependientes, String nombre) {
-        this.ingredientes = new HashSet<>();
+    public Receta(List<Ingrediente> ingredientes, int tiempoCoccion, boolean modoPreparacion, String tipo, String complejidad, List<Receta> recetasDependientes, String nombre) {
+        this.ingredientes = new ArrayList<>();
         this.tiempoCoccion = tiempoCoccion;
         this.modoPreparacion = modoPreparacion;
         this.tipo = tipo;
@@ -41,18 +41,15 @@ public class Receta {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
-    
 
-    public Set<Ingrediente> getIngredientes() {
+    public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(Set<Ingrediente> ingredientes) {
+    public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
-
+    
     public int getTiempoCoccion() {
         return tiempoCoccion;
     }
@@ -98,31 +95,8 @@ public class Receta {
     public void agregarRecetaDependiente(Receta receta) {
         this.recetasDependientes.add(receta); 
     }
-    public double calcularPrecio() {
-        double precio = 0;
-        for (Ingrediente ingrediente : ingredientes) {
-            precio += ingrediente.getCosto()*ingrediente.getCantidadEnStock();
-        }
-
-        switch (tipo) {
-            case "horno":
-                precio += 2000;
-                break;
-            case "gourmet":
-                precio += 2500;
-                break;
-            case "ensalada":
-                precio += 1000;
-                break;
-            case "postre":
-                precio += 1500;
-                break;
-            default:
-                break; 
-        }
-        return precio;
-    }
-
+    
+    
     public void establecerComplejidad(int opcion) {
         switch (opcion) {
             case 1:

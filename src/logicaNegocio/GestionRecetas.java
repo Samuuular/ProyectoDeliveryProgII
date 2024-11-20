@@ -14,16 +14,17 @@ import java.util.List;
 import java.util.Set;
 
 public class GestionRecetas {
-    private Set<Receta> recetas;
+    private List<Receta> recetas;
 
     public GestionRecetas() {
-        this.recetas = new HashSet();
+        this.recetas = new ArrayList();
     }
 
     public void agregarReceta(Receta receta) {
         recetas.add(receta);
         System.out.println("Receta agregada: " + receta.getNombre());
     }
+    
 
     public void definirRecetasDependientes(Receta receta, List<Receta> recetasDependientes) {
         if (recetas.contains(receta)) {
@@ -43,13 +44,15 @@ public class GestionRecetas {
         }
     }
 
-    public Set<Receta> getRecetas() {
+    public List<Receta> getRecetas() {
         return recetas;
     }
 
-    public void setRecetas(Set<Receta> recetas) {
+    public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
     }
+
+    
 
     
     

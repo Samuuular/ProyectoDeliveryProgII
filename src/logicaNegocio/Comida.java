@@ -11,14 +11,12 @@ package logicaNegocio;
 public class Comida {
     private String nombre;
     private Receta receta;
+    private double precio;
     public Comida(String nombre, Receta receta) {
         this.nombre = nombre;
         this.receta = receta;
     }
     
-    public double getPrecio(){
-        return receta.calcularPrecio();
-    }
     public String getNombre() {
         return nombre;
     }
@@ -30,6 +28,45 @@ public class Comida {
     }
     public void setReceta(Receta receta) {
         this.receta = receta;
+    }
+    
+    public double calcularPrecio() {
+        precio = 0;
+        for (Ingrediente ingrediente : receta.getIngredientes()) {
+            precio += ingrediente.getCosto();
+        }
+        for (Receta receta : receta.getRecetasDependientes()) {
+            for (Ingrediente ingrediente1 : receta.getIngredientes()) {
+                precio += ingrediente1.getCosto();
+            }
+        }
+        switch (receta.getTipo()) {
+            case "horno":
+                precio += 2000;
+                break;
+            case "gourmet":
+                precio += 2500;
+                break;
+            case "ensalada":
+                precio += 1000;
+                break;
+            case "postre":
+                precio += 1500;
+                break;
+            default:
+                break; 
+        }
+        switch (receta.getComplejidad()){
+            case "alta":
+                precio += 2000;
+                break;
+            case "media":
+                precio += 1000;
+                break;
+            case "baja":
+                precio += 500;
+        }
+        return precio;
     }
     
     @Override

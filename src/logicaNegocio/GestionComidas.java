@@ -4,7 +4,9 @@
  */
 package logicaNegocio;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,19 +14,28 @@ import java.util.Set;
  * @author EduPiry
  */
 public class GestionComidas {
-    private Set<Comida> comidas;
+    private List<Comida> comidas;
 
     public GestionComidas() {
-        this.comidas = new HashSet<>();
+        this.comidas = new ArrayList<>();
+    }
+    
+    public void agregarComida(Comida comida){
+        comidas.add(comida);
     }
 
-    public Set<Comida> getComidas() {
+    public List<Comida> getComidas() {
         return comidas;
     }
 
-    public void setComidas(Set<Comida> comidas) {
+    public void setComidas(List<Comida> comidas) {
         this.comidas = comidas;
     }
+
+    public double calcularPrecioPorComida(Comida comida){
+        return comida.calcularPrecio();
+    }
+    
     
     
     
