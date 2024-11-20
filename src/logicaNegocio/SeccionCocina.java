@@ -4,19 +4,16 @@
  */
 package logicaNegocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *
  * @author EduPiry
  */
-public abstract class SeccionCocina {
+public abstract class SeccionCocina implements Serializable{
+    private static final long serialVersionUID = 2L;
     protected String nombre;
     protected PoliticaAceptacion politica;
     protected GestionIngredientes ingredientes;
@@ -76,7 +73,6 @@ public abstract class SeccionCocina {
                 ingredientes.actualizarStockGestion(comida);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                return;
             }
         }
            

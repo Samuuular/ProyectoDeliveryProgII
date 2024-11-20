@@ -4,11 +4,14 @@
  */
 package logicaNegocio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author EduPiry
  */
-public class Comida {
+public class Comida implements Serializable{
+    private static final long serialVersionUID = 2L;
     private String nombre;
     private Receta receta;
     private double precio;

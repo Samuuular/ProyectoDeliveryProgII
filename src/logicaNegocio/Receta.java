@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package logicaNegocio;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,7 +16,8 @@ import java.util.Set;
  *
  * @author EduPiry
  */
-public class Receta {
+public class Receta implements Serializable{
+    private static final long serialVersionUID = 2L;
     private List<Ingrediente> ingredientes;
     private int tiempoCoccion;
     private boolean modoPreparacion;
