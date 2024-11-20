@@ -4,17 +4,29 @@
  */
 package presentacionWin;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocio.Logica;
+
 /**
  *
  * @author EduPiry
  */
 public class ListadoVista extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modeloComidas = new DefaultTableModel();
+    private DefaultTableModel modeloClientes = new DefaultTableModel();
+    private DefaultTableModel modeloIngredientes = new DefaultTableModel();
+    private DefaultTableModel modeloPedidos = new DefaultTableModel();
+    private DefaultTableModel modeloRecetas = new DefaultTableModel();
+    private DefaultTableModel modeloSecciones = new DefaultTableModel();
+    private Logica logicaTabla;
     /**
      * Creates new form ListaClienteVista
      */
-    public ListadoVista() {
+    public ListadoVista(Logica logicaDatos) {
         initComponents();
+        logicaTabla = logicaDatos;
     }
 
     /**
@@ -29,24 +41,24 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaRegistros = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        buscador1 = new javax.swing.JTextField();
+        filtroComidas = new javax.swing.JRadioButton();
+        filtroClientes = new javax.swing.JRadioButton();
+        filtroIngredientes = new javax.swing.JRadioButton();
+        filtroPedidos = new javax.swing.JRadioButton();
+        filtroRecetas = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        buscador2 = new javax.swing.JTextField();
+        filtroSecciones = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
 
         jLabel1.setText("LISTADO DE LOS REGISTROS");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,36 +69,42 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaRegistros);
 
         jLabel2.setText("BUSCAR POR NOMBRE:");
 
-        jRadioButton1.setText("COMIDAS");
+        buscador1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscador1KeyReleased(evt);
+            }
+        });
 
-        jRadioButton2.setText("CLIENTES");
+        filtroComidas.setText("COMIDAS");
 
-        jRadioButton3.setText("INGREDIENTES");
+        filtroClientes.setText("CLIENTES");
 
-        jRadioButton4.setText("PEDIDOS");
+        filtroIngredientes.setText("INGREDIENTES");
 
-        jRadioButton5.setText("RECETAS");
+        filtroPedidos.setText("PEDIDOS");
+
+        filtroRecetas.setText("RECETAS");
 
         jLabel3.setText("BUSCAR POR ID:");
 
-        jRadioButton6.setText("SECCIONES");
+        filtroSecciones.setText("SECCIONES");
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(buscador1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroComidas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroIngredientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroPedidos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroRecetas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(buscador2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(filtroSecciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -106,28 +124,28 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(filtroComidas)
                                 .addGap(29, 29, 29)))
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton2)
+                                .addComponent(filtroClientes)
                                 .addGap(30, 30, 30)
-                                .addComponent(jRadioButton3)
+                                .addComponent(filtroIngredientes)
                                 .addGap(28, 28, 28)
-                                .addComponent(jRadioButton4)
+                                .addComponent(filtroPedidos)
                                 .addGap(28, 28, 28)
-                                .addComponent(jRadioButton5))
+                                .addComponent(filtroRecetas))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buscador1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)))
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buscador2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
-                                .addComponent(jRadioButton6)))))
+                                .addComponent(filtroSecciones)))))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -138,17 +156,17 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6))
+                    .addComponent(filtroComidas)
+                    .addComponent(filtroClientes)
+                    .addComponent(filtroIngredientes)
+                    .addComponent(filtroPedidos)
+                    .addComponent(filtroRecetas)
+                    .addComponent(filtroSecciones))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(63, Short.MAX_VALUE))
@@ -168,21 +186,97 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buscador1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscador1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscador1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField buscador1;
+    private javax.swing.JTextField buscador2;
+    private javax.swing.JRadioButton filtroClientes;
+    private javax.swing.JRadioButton filtroComidas;
+    private javax.swing.JRadioButton filtroIngredientes;
+    private javax.swing.JRadioButton filtroPedidos;
+    private javax.swing.JRadioButton filtroRecetas;
+    private javax.swing.JRadioButton filtroSecciones;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tablaRegistros;
     // End of variables declaration//GEN-END:variables
+    private void borrarFilas() {
+        DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
+        model.setRowCount(0); // Elimina todas las filas de la tabla
+    }
+    private void armarCabeceraComidas(){
+        modeloComidas.setColumnCount(0);
+        modeloComidas.addColumn("Nombre");
+        modeloComidas.addColumn("Receta");
+        modeloComidas.addColumn("Precio");
+        tablaRegistros.setModel(modeloComidas);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+    }
+    private void armarCabeceraClientes(){
+        modeloClientes.setColumnCount(0);
+        modeloClientes.addColumn("ID");
+        modeloClientes.addColumn("Nombre");
+        modeloClientes.addColumn("Direccion");
+        tablaRegistros.setModel(modeloClientes);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(200);
+    }
+    private void armarCabeceraIngredientes(){
+        modeloIngredientes.setColumnCount(0);
+        modeloIngredientes.addColumn("Nombre");
+        modeloIngredientes.addColumn("Costo");
+        modeloIngredientes.addColumn("Stock");
+        tablaRegistros.setModel(modeloIngredientes);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+    }
+    private void armarCabeceraPedidos(){
+        modeloPedidos.setColumnCount(0);
+        modeloPedidos.addColumn("ID");
+        modeloPedidos.addColumn("Comidas");
+        modeloPedidos.addColumn("Precio");
+        modeloPedidos.addColumn("Estado");
+        tablaRegistros.setModel(modeloPedidos);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
+    }
+    private void armarCabeceraRecetas(){
+        modeloRecetas.setColumnCount(0);
+        modeloRecetas.addColumn("Nombre");
+        modeloRecetas.addColumn("Ingredientes");
+        modeloRecetas.addColumn("Tiempo de Coccion");
+        modeloRecetas.addColumn("Tipo");
+        modeloRecetas.addColumn("Complejidad");
+        modeloRecetas.addColumn("Recetas Dependientes");
+        tablaRegistros.setModel(modeloRecetas);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(5).setPreferredWidth(150);
+    }
+    private void armarCabeceraSecciones(){
+        modeloSecciones.setColumnCount(0);
+        modeloSecciones.addColumn(rootPane);
+    }
+
 }

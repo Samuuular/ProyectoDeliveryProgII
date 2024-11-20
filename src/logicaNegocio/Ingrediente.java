@@ -23,6 +23,10 @@ public class Ingrediente implements Serializable{
         this.cantidadEnStock = cantidadEnStock;
     }
 
+    public Ingrediente() {
+    }
+    
+
     public int getCantidadNecesaria() {
         return cantidadNecesaria;
     }

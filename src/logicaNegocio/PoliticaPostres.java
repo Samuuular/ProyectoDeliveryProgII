@@ -11,8 +11,12 @@ import java.util.Map;
  * @author EduPiry
  */
 public class PoliticaPostres implements PoliticaAceptacion {
+    private static final String NOMBRE = "Politica Postres";
     @Override
     public boolean acepta(Comida comida) {
         return comida.getReceta().getTipo().equals("postre");
+    }
+    public String obtenerNombre(){
+        return NOMBRE;
     }
 }

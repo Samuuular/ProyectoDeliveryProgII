@@ -18,6 +18,7 @@ public class Comida implements Serializable{
     public Comida(String nombre, Receta receta) {
         this.nombre = nombre;
         this.receta = receta;
+        this.precio = calcularPrecio();
     }
     
     public String getNombre() {

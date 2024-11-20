@@ -33,7 +33,15 @@ public class GestionClientes {
         this.clientes = clientes;
     }
 
-    
+    public Cliente obtenerClienteId(int id){
+        Cliente clienteAux = new Cliente();
+        for (Cliente cliente : clientes) {
+            if(cliente.getId()==id){
+                clienteAux = cliente;
+            }
+        }
+        return clienteAux;
+    }
 
     
 
