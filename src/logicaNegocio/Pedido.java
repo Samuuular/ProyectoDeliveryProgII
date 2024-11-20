@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author EduPiry
  */
-public class Pedido {
+public class Pedido {    
     private Cliente cliente;
     private List<Comida> comidas;
     private double precio;
