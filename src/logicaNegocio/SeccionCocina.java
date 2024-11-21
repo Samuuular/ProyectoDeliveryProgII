@@ -26,6 +26,9 @@ public abstract class SeccionCocina implements Serializable{
         this.recetasPendientes = new ArrayList<>();
     }
 
+    public SeccionCocina() {
+    }
+    
     public List<Receta> getRecetasPendientes() {
         return recetasPendientes;
     }

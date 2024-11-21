@@ -20,6 +20,10 @@ public class Comida implements Serializable{
         this.receta = receta;
         this.precio = calcularPrecio();
     }
+
+    public Comida() {
+    }
+    
     
     public String getNombre() {
         return nombre;

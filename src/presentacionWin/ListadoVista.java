@@ -39,6 +39,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
     protected List<Receta> susRecetasPendientes = null;
     protected List<Comida> agregarComidas;
     protected List<Receta> agregarRecetas;
+    protected Receta agregarUnaReceta;
     protected List<Ingrediente> agregarIngredientes;
     /**
      * Creates new form ListaClienteVista
@@ -46,6 +47,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
     public ListadoVista(Logica logicaDatos) {
         initComponents();
         logicaTabla = logicaDatos;
+        agregarUnaReceta = new Receta();
         agregarComidas = new ArrayList();
         agregarRecetas = new ArrayList();
         agregarIngredientes = new ArrayList();
@@ -904,6 +906,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
             }else if(filtroRecetas.isSelected()){
                 String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
                 receta1 = logicaTabla.obtenerReceta(nombre);
+                agregarUnaReceta = receta1;
                 agregarRecetas.add(receta1);
             }else if(filtroIngredientes.isSelected()){
                 String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();

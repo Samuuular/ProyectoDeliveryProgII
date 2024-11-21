@@ -22,7 +22,17 @@ public class GestionRecetas {
         recetas.add(receta);
         System.out.println("Receta agregada: " + receta.getNombre());
     }
-    
+    public void modificarReceta(Receta receta){
+        Receta recetaAux = new Receta();
+        int indice = -1;
+        for (int i = 0; i < recetas.size(); i++) {
+            if(recetas.get(i).getNombre().equalsIgnoreCase(receta.getNombre())){
+                indice = i;
+                break;
+            }
+        }
+        recetas.set(indice, receta);
+    }
 
     public void definirRecetasDependientes(Receta receta, List<Receta> recetasDependientes) {
         if (recetas.contains(receta)) {

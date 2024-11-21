@@ -36,6 +36,10 @@ public class Receta implements Serializable{
         this.nombre = nombre;
     }
 
+    public Receta() {
+    }
+    
+
     public String getNombre() {
         return nombre;
     }

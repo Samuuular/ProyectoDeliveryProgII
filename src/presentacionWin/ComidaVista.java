@@ -7,6 +7,7 @@ package presentacionWin;
 import java.util.List;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+import logicaNegocio.Comida;
 import logicaNegocio.GestionComidas;
 import logicaNegocio.Logica;
 import logicaNegocio.Receta;
@@ -19,7 +20,7 @@ public class ComidaVista extends javax.swing.JInternalFrame {
 
     private GestionComidas comidas;
     private Logica logicaComidas;
-    private Receta receta = null;
+    private Receta receta;
     /**
      * Creates new form ComidaVista
      */
@@ -27,6 +28,7 @@ public class ComidaVista extends javax.swing.JInternalFrame {
         initComponents();
         logicaComidas = logicaDatos;
         comidas = new GestionComidas();
+        receta = new Receta();
     }
 
     /**
@@ -134,7 +136,12 @@ public class ComidaVista extends javax.swing.JInternalFrame {
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
         comidas.setComidas(logicaComidas.loadComidas());
-        
+        Comida comida1 = new Comida();
+        comida1.setNombre(textNombre.getText());
+        comida1.setReceta(receta);
+        comida1.calcularPrecio();
+        comidas.agregarComida(comida1);
+        logicaComidas.saveComidas(comidas.getComidas());
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecetasActionPerformed
@@ -151,6 +158,7 @@ public class ComidaVista extends javax.swing.JInternalFrame {
             @Override
             public void internalFrameOpened(InternalFrameEvent e) {
                 // Este método se llama cuando se abre el JInternalFrame
+                lr.filtroRecetas.setSelected(true);
                 
                 
             }
@@ -158,7 +166,7 @@ public class ComidaVista extends javax.swing.JInternalFrame {
             @Override
             public void internalFrameClosing(InternalFrameEvent e) {
                 // Este método se llama cuando se cierra el JInternalFrame
-                
+                receta = lr.agregarUnaReceta;
                 
                 // Realiza aquí las acciones que deseas cuando se cierra
                 // por ejemplo, actualizaciones o notificaciones.

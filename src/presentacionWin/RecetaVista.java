@@ -4,17 +4,33 @@
  */
 package presentacionWin;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import logicaNegocio.GestionRecetas;
+import logicaNegocio.Ingrediente;
+import logicaNegocio.Logica;
+import logicaNegocio.Receta;
+
 /**
  *
  * @author EduPiry
  */
 public class RecetaVista extends javax.swing.JInternalFrame {
 
+    private Logica logicaRecetas;
+    private List<Ingrediente> listaIngredientes;
+    private List<Receta> listaRecetas;
+    private GestionRecetas gestionRecetas;
     /**
      * Creates new form RecetaVista
      */
-    public RecetaVista() {
+    public RecetaVista(Logica logicaDatos) {
         initComponents();
+        logicaRecetas = logicaDatos;
+        listaIngredientes = new ArrayList();
+        listaRecetas = new ArrayList();
     }
 
     /**
@@ -29,18 +45,19 @@ public class RecetaVista extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        textNombre = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        botonAgregarIngredientes = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        textTiempoCoccion = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        textTipo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        textComplejidad = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        botonAgregarRecetas = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
+        botonModificar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -51,7 +68,12 @@ public class RecetaVista extends javax.swing.JInternalFrame {
 
         jLabel10.setText("LISTA DE INGREDIENTES :");
 
-        jButton4.setText("AGREGAR INGREDIENTES");
+        botonAgregarIngredientes.setText("AGREGAR INGREDIENTES");
+        botonAgregarIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarIngredientesActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("TIEMPO DE COCCION :");
 
@@ -61,24 +83,42 @@ public class RecetaVista extends javax.swing.JInternalFrame {
 
         jLabel14.setText("RECETAS DEPENDIENTES :");
 
-        jButton5.setText("AGREGAR RECETAS");
+        botonAgregarRecetas.setText("AGREGAR RECETAS");
+        botonAgregarRecetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarRecetasActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("GUARDAR");
+        botonGuardar.setText("GUARDAR");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
+
+        botonModificar.setText("MODIFICAR");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonAgregarIngredientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textTiempoCoccion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textComplejidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonAgregarRecetas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -99,7 +139,7 @@ public class RecetaVista extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel8))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel10)
@@ -108,14 +148,16 @@ public class RecetaVista extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel13))
                                     .addGap(27, 27, 27)
                                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField8)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(textComplejidad)
+                                        .addComponent(textTipo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(textTiempoCoccion, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(botonAgregarIngredientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                                        .addComponent(botonAgregarRecetas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(jButton6)))
+                        .addGap(94, 94, 94)
+                        .addComponent(botonGuardar)
+                        .addGap(80, 80, 80)
+                        .addComponent(botonModificar)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -126,30 +168,32 @@ public class RecetaVista extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jButton4))
+                    .addComponent(botonAgregarIngredientes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textTiempoCoccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textComplejidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jButton6)
-                .addGap(31, 31, 31))
+                    .addComponent(botonAgregarRecetas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardar)
+                    .addComponent(botonModificar))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,11 +210,148 @@ public class RecetaVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+        gestionRecetas.setRecetas(logicaRecetas.loadRecetas());
+        Receta receta1 = new Receta();
+        receta1.setNombre(textNombre.getText());
+        receta1.setIngredientes(listaIngredientes);
+        receta1.setTiempoCoccion(Integer.parseInt(textTiempoCoccion.getText()));
+        receta1.setTipo(textTipo.getText());
+        receta1.setComplejidad(textComplejidad.getText());
+        receta1.setRecetasDependientes(listaRecetas);
+        gestionRecetas.agregarReceta(receta1);
+        logicaRecetas.saveRecetas(gestionRecetas.getRecetas());
+        
+        
+        
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void botonAgregarIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarIngredientesActionPerformed
+        // TODO add your handling code here:
+        ListadoVista lr = new ListadoVista(logicaRecetas);
+        lr.setVisible(true);
+        CasaDeComidasVista.obtenerEscritorio().add(lr);
+        int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+        int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+        lr.setLocation(x, y);
+        CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+        lr.addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+                // Este método se llama cuando se abre el JInternalFrame
+                lr.filtroIngredientes.setSelected(true);
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                // Este método se llama cuando se cierra el JInternalFrame
+                listaIngredientes = lr.agregarIngredientes;
+                
+                // Realiza aquí las acciones que deseas cuando se cierra
+                // por ejemplo, actualizaciones o notificaciones.
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                // Este método se llama después de que el JInternalFrame se haya cerrado
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se minimiza
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+            }
+        });
+    }//GEN-LAST:event_botonAgregarIngredientesActionPerformed
+
+    private void botonAgregarRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarRecetasActionPerformed
+        // TODO add your handling code here:
+        ListadoVista lr = new ListadoVista(logicaRecetas);
+        lr.setVisible(true);
+        CasaDeComidasVista.obtenerEscritorio().add(lr);
+        int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+        int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+        lr.setLocation(x, y);
+        CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+        lr.addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+                // Este método se llama cuando se abre el JInternalFrame
+                lr.filtroRecetas.setSelected(true);
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                // Este método se llama cuando se cierra el JInternalFrame
+                listaRecetas = lr.agregarRecetas;
+                
+                // Realiza aquí las acciones que deseas cuando se cierra
+                // por ejemplo, actualizaciones o notificaciones.
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                // Este método se llama después de que el JInternalFrame se haya cerrado
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se minimiza
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+            }
+        });
+    }//GEN-LAST:event_botonAgregarRecetasActionPerformed
+
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        // TODO add your handling code here:
+        gestionRecetas.setRecetas(logicaRecetas.loadRecetas());
+        Receta receta1 = new Receta();
+        receta1.setNombre(textNombre.getText());
+        receta1.setIngredientes(listaIngredientes);
+        receta1.setTiempoCoccion(Integer.parseInt(textTiempoCoccion.getText()));
+        receta1.setTipo(textTipo.getText());
+        receta1.setComplejidad(textComplejidad.getText());
+        receta1.setRecetasDependientes(listaRecetas);
+        gestionRecetas.modificarReceta(receta1);
+        logicaRecetas.saveRecetas(gestionRecetas.getRecetas());
+        
+    }//GEN-LAST:event_botonModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton botonAgregarIngredientes;
+    private javax.swing.JButton botonAgregarRecetas;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton botonModificar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -179,9 +360,9 @@ public class RecetaVista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField textComplejidad;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textTiempoCoccion;
+    private javax.swing.JTextField textTipo;
     // End of variables declaration//GEN-END:variables
 }

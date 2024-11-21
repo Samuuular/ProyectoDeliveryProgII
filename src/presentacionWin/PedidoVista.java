@@ -4,6 +4,7 @@
  */
 package presentacionWin;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -31,6 +32,7 @@ public class PedidoVista extends javax.swing.JInternalFrame {
         initComponents();
         logicaPedidos = logicaDatos;
         pedidos = new GestionPedidos();
+        listaComidas = new ArrayList();
         
     }
 
@@ -153,16 +155,21 @@ public class PedidoVista extends javax.swing.JInternalFrame {
         ListadoVista lr = new ListadoVista(logicaPedidos);
         lr.setVisible(true);
         CasaDeComidasVista.obtenerEscritorio().add(lr);
+        int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+        int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+        lr.setLocation(x, y);
+        CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
         lr.addInternalFrameListener(new InternalFrameListener() {
             @Override
             public void internalFrameOpened(InternalFrameEvent e) {
                 // Este método se llama cuando se abre el JInternalFrame
+                lr.filtroComidas.setSelected(true);
             }
 
             @Override
             public void internalFrameClosing(InternalFrameEvent e) {
                 // Este método se llama cuando se cierra el JInternalFrame
-                
+                listaComidas = lr.agregarComidas;
                 
                 // Realiza aquí las acciones que deseas cuando se cierra
                 // por ejemplo, actualizaciones o notificaciones.
@@ -204,6 +211,10 @@ public class PedidoVista extends javax.swing.JInternalFrame {
         Cliente cliente1 = new Cliente();
         cliente1 = clientes.obtenerClienteId(Integer.parseInt(textId.getText()));
         pedido.setCliente(cliente1);
+        pedido.setComidas(listaComidas);
+        pedido.calcularPedido();
+        pedidos.agregarPedido(pedido);
+        logicaPedidos.savePedidos(pedidos.getPedidos());
         
     }//GEN-LAST:event_botonGuardarActionPerformed
 
