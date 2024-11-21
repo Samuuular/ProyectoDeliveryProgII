@@ -4,17 +4,25 @@
  */
 package presentacionWin;
 
+import logicaNegocio.GestionIngredientes;
+import logicaNegocio.Ingrediente;
+import logicaNegocio.Logica;
+
 /**
  *
  * @author EduPiry
  */
 public class IngredientesVista extends javax.swing.JInternalFrame {
 
+    private GestionIngredientes ingredientes;
+    private Logica logicaIngredientes;
     /**
      * Creates new form IngredientesVista
      */
-    public IngredientesVista() {
+    public IngredientesVista(Logica logicaDatos) {
         initComponents();
+        logicaIngredientes = logicaDatos;
+        ingredientes = new GestionIngredientes();
     }
 
     /**
@@ -29,12 +37,12 @@ public class IngredientesVista extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        textNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        textCosto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        textStock = new javax.swing.JTextField();
+        botonGuardar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -47,16 +55,27 @@ public class IngredientesVista extends javax.swing.JInternalFrame {
 
         jLabel8.setText("STOCK :");
 
-        jButton2.setText("GUARDAR");
+        textStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textStockActionPerformed(evt);
+            }
+        });
+
+        botonGuardar.setText("GUARDAR");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textCosto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -73,12 +92,12 @@ public class IngredientesVista extends javax.swing.JInternalFrame {
                         .addGap(32, 32, 32)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
+                            .addComponent(textNombre)
+                            .addComponent(textCosto)
+                            .addComponent(textStock, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jButton2)))
+                        .addComponent(botonGuardar)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -89,17 +108,17 @@ public class IngredientesVista extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(botonGuardar)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -117,16 +136,31 @@ public class IngredientesVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void textStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textStockActionPerformed
+
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+        ingredientes.setIngredientes(logicaIngredientes.loadIngredientes());
+        Ingrediente ingrediente1 = new Ingrediente();
+        ingrediente1.setNombre(textNombre.getText());
+        ingrediente1.setCosto(Double.parseDouble(textCosto.getText()));
+        ingrediente1.setCantidadEnStock(Integer.parseInt(textStock.getText()));
+        ingredientes.registrarIngrediente(ingrediente1);
+        logicaIngredientes.saveIngredientes(ingredientes.getIngredientes());
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton botonGuardar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField textCosto;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textStock;
     // End of variables declaration//GEN-END:variables
 }

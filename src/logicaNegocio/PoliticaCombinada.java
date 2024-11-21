@@ -13,14 +13,18 @@ import java.util.Map;
 public class PoliticaCombinada implements PoliticaAceptacion {
     private PoliticaAceptacion politica1;
     private PoliticaAceptacion politica2;
+    private static final String NOMBRE = "Politica Combinada";
 
     public PoliticaCombinada(PoliticaAceptacion politica1, PoliticaAceptacion politica2) {
         this.politica1 = politica1;
         this.politica2 = politica2;
     }
-
+    
     @Override
     public boolean acepta(Comida comida) {
         return politica1.acepta(comida) && politica2.acepta(comida);
+    }
+    public String obtenerNombre(){
+        return NOMBRE;
     }
 }

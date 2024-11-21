@@ -4,17 +4,26 @@
  */
 package presentacionWin;
 
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import logicaNegocio.GestionComidas;
+import logicaNegocio.Logica;
+
 /**
  *
  * @author EduPiry
  */
 public class ComidaVista extends javax.swing.JInternalFrame {
 
+    private GestionComidas comidas;
+    private Logica logicaComidas;
     /**
      * Creates new form ComidaVista
      */
-    public ComidaVista() {
+    public ComidaVista(Logica logicaDatos) {
         initComponents();
+        logicaComidas = logicaDatos;
+        comidas = new GestionComidas();
     }
 
     /**
@@ -121,14 +130,56 @@ public class ComidaVista extends javax.swing.JInternalFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
+        comidas.setComidas(logicaComidas.loadComidas());
+        
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecetasActionPerformed
         // TODO add your handling code here:
         
-        ListadoVista lr = new ListadoVista();
+        ListadoVista lr = new ListadoVista(logicaComidas);
         lr.setVisible(true);
-        
+        CasaDeComidasVista.obtenerEscritorio().add(lr);
+        lr.addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+                // Este método se llama cuando se abre el JInternalFrame
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                // Este método se llama cuando se cierra el JInternalFrame
+                
+                
+                // Realiza aquí las acciones que deseas cuando se cierra
+                // por ejemplo, actualizaciones o notificaciones.
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                // Este método se llama después de que el JInternalFrame se haya cerrado
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se minimiza
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+            }
+        });
         
     }//GEN-LAST:event_botonRecetasActionPerformed
 

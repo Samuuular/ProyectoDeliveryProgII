@@ -13,6 +13,7 @@ import java.util.Map;
 public class PoliticaLimitePedidos implements PoliticaAceptacion {
     private int limite;
     private int stock;
+    private static final String NOMBRE = "Politica Limite Pedidos";
     public PoliticaLimitePedidos(int limite, int stock) {
         this.limite = limite;
         this.stock = stock;
@@ -21,5 +22,8 @@ public class PoliticaLimitePedidos implements PoliticaAceptacion {
     @Override
     public boolean acepta(Comida comida) {
         return stock < limite;
+    }
+    public String obtenerNombre(){
+        return NOMBRE;
     }
 }

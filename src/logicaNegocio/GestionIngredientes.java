@@ -20,13 +20,18 @@ public class GestionIngredientes {
         this.ingredientes = new ArrayList<>();
     }
 
-    public void registrarIngrediente(String nombre, double costo, int cantidadEnStock) {
-        
-        Ingrediente ingrediente = new Ingrediente(nombre, costo, cantidadEnStock);
+    public void registrarIngrediente(Ingrediente ingrediente) {
         ingredientes.add(ingrediente);
-        System.out.println("Ingrediente registrado: " + nombre);
-        
     }
+
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
 
     public void actualizarStockGestion(Comida comida) {
         Iterator<Ingrediente> iterator = ingredientes.iterator();

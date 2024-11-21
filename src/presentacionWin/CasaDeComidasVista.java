@@ -84,6 +84,11 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Comida");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuItem6.setText("Secciones Cocina");
@@ -119,6 +124,16 @@ public class CasaDeComidasVista extends javax.swing.JFrame {
         jDEscritorio.add(cv);
         jDEscritorio.moveToFront(cv);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        jDEscritorio.removeAll();
+        jDEscritorio.repaint();
+        ComidaVista cmv = new ComidaVista(logica);
+        cmv.setVisible(true);
+        jDEscritorio.add(cmv);
+        jDEscritorio.moveToFront(cmv);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

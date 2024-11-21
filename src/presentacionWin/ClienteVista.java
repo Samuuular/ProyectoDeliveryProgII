@@ -141,6 +141,7 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
+        clientes.setClientes(logicaClientes.loadClientes());
         Cliente cliente1 = new Cliente();
         cliente1.setId(Integer.parseInt(textId.getText()));
         cliente1.setNombre(textNombre.getText());

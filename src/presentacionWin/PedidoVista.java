@@ -4,17 +4,34 @@
  */
 package presentacionWin;
 
+import java.util.List;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import logicaNegocio.Cliente;
+import logicaNegocio.Comida;
+import logicaNegocio.GestionClientes;
+import logicaNegocio.GestionPedidos;
+import logicaNegocio.Logica;
+import logicaNegocio.Pedido;
+
 /**
  *
  * @author EduPiry
  */
 public class PedidoVista extends javax.swing.JInternalFrame {
 
+    private GestionPedidos pedidos;
+    private GestionClientes clientes;
+    private Logica logicaPedidos;
+    private List<Comida> listaComidas;
     /**
      * Creates new form PedidoVista
      */
-    public PedidoVista() {
+    public PedidoVista(Logica logicaDatos) {
         initComponents();
+        logicaPedidos = logicaDatos;
+        pedidos = new GestionPedidos();
+        
     }
 
     /**
@@ -29,12 +46,12 @@ public class PedidoVista extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        textId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        botonAgregarComidas = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        textPrecio = new javax.swing.JTextField();
+        botonGuardar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -45,20 +62,30 @@ public class PedidoVista extends javax.swing.JInternalFrame {
 
         jLabel7.setText("LISTA DE COMIDAS :");
 
-        jButton3.setText("AGREGAR COMIDAS");
+        botonAgregarComidas.setText("AGREGAR COMIDAS");
+        botonAgregarComidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarComidasActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("PRECIO :");
 
-        jButton4.setText("GUARDAR");
+        botonGuardar.setText("GUARDAR");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textId, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonAgregarComidas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(textPrecio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -77,12 +104,12 @@ public class PedidoVista extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3)
+                            .addComponent(textId)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jButton4)
+                                .addComponent(botonGuardar)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                            .addComponent(jTextField4))))
+                            .addComponent(botonAgregarComidas, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                            .addComponent(textPrecio))))
                 .addGap(49, 49, 49))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -93,17 +120,17 @@ public class PedidoVista extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jButton3))
+                    .addComponent(botonAgregarComidas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(botonGuardar)
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -121,16 +148,75 @@ public class PedidoVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonAgregarComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarComidasActionPerformed
+        // TODO add your handling code here:
+        ListadoVista lr = new ListadoVista(logicaPedidos);
+        lr.setVisible(true);
+        CasaDeComidasVista.obtenerEscritorio().add(lr);
+        lr.addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+                // Este método se llama cuando se abre el JInternalFrame
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+                // Este método se llama cuando se cierra el JInternalFrame
+                
+                
+                // Realiza aquí las acciones que deseas cuando se cierra
+                // por ejemplo, actualizaciones o notificaciones.
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                // Este método se llama después de que el JInternalFrame se haya cerrado
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se minimiza
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+                // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+            }
+        });
+        
+    }//GEN-LAST:event_botonAgregarComidasActionPerformed
+
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+        pedidos.setPedidos(logicaPedidos.loadPedidos());
+        clientes.setClientes(logicaPedidos.loadClientes());
+        Pedido pedido = new Pedido();
+        Cliente cliente1 = new Cliente();
+        cliente1 = clientes.obtenerClienteId(Integer.parseInt(textId.getText()));
+        pedido.setCliente(cliente1);
+        
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton botonAgregarComidas;
+    private javax.swing.JButton botonGuardar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField textId;
+    private javax.swing.JTextField textPrecio;
     // End of variables declaration//GEN-END:variables
 }

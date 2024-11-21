@@ -11,9 +11,12 @@ package logicaNegocio;
 import java.util.Map;
 
 public class PoliticaGourmet implements PoliticaAceptacion {
-
+    private static final String NOMBRE = "Politica Gourmet";
     @Override
     public boolean acepta(Comida comida) {
         return comida.getReceta().getTipo().equalsIgnoreCase("gourmet");
+    }
+    public String obtenerNombre(){
+        return NOMBRE;
     }
 }

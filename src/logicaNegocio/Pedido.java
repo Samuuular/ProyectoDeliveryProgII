@@ -25,6 +25,10 @@ public class Pedido {
             this.estado = false;
     }
 
+    public Pedido() {   
+    }
+    
+
     //Metodos
 
     public void agregarComida(Comida comida) {
