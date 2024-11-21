@@ -16,6 +16,11 @@ public class GestionClientes {
 
     private List<Cliente> clientes;
 
+    public GestionClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    @SuppressWarnings("unchecked")
     public GestionClientes() {
         this.clientes = new ArrayList();
     }
@@ -43,8 +48,7 @@ public class GestionClientes {
         return clienteAux;
     }
 
-    
-
+ 
     public void mostrarClientes() {
         if (clientes.isEmpty()) {
             System.out.println("No hay clientes registrados.");
