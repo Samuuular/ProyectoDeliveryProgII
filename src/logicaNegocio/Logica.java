@@ -70,4 +70,40 @@ public class Logica {
         }
         return pedidoaux;
     }
+    public Receta obtenerReceta(String nombre){
+        Receta recetaaux=null;
+        for (Receta receta : datos.loadRecetas()) {
+            if(receta.getNombre().equalsIgnoreCase(nombre)){
+                recetaaux = receta;
+            }
+        }
+        return recetaaux;
+    }
+    public SeccionCocina obtenerSeccion(String nombre){
+        SeccionCocina seccionAux = null;
+        for (SeccionCocina seccion : datos.loadSeccionesCocinas()) {
+            if(seccion.getNombre().equalsIgnoreCase(nombre)){
+                seccionAux = seccion;
+            }
+        }
+        return seccionAux;
+    }
+    public Comida obtenerComida(String nombre){
+        Comida comidaAux = null;
+        for (Comida comida : datos.loadComidas()) {
+            if(comida.getNombre().equalsIgnoreCase(nombre)){
+                comidaAux = comida;
+            }
+        }
+        return comidaAux;
+    }
+    public Ingrediente obtenerIngrediente(String nombre){
+        Ingrediente ingredienteAux= null;
+        for (Ingrediente ingrediente : datos.loadIngredientes()) {
+            if(ingrediente.getNombre().equalsIgnoreCase(nombre)){
+                ingredienteAux = ingrediente;
+            }
+        }
+        return ingredienteAux;
+    }
 }

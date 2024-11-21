@@ -4,10 +4,12 @@
  */
 package presentacionWin;
 
+import java.util.List;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import logicaNegocio.GestionComidas;
 import logicaNegocio.Logica;
+import logicaNegocio.Receta;
 
 /**
  *
@@ -17,6 +19,7 @@ public class ComidaVista extends javax.swing.JInternalFrame {
 
     private GestionComidas comidas;
     private Logica logicaComidas;
+    private Receta receta = null;
     /**
      * Creates new form ComidaVista
      */
@@ -140,10 +143,16 @@ public class ComidaVista extends javax.swing.JInternalFrame {
         ListadoVista lr = new ListadoVista(logicaComidas);
         lr.setVisible(true);
         CasaDeComidasVista.obtenerEscritorio().add(lr);
+        int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+        int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+        lr.setLocation(x, y);
+        CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
         lr.addInternalFrameListener(new InternalFrameListener() {
             @Override
             public void internalFrameOpened(InternalFrameEvent e) {
                 // Este método se llama cuando se abre el JInternalFrame
+                
+                
             }
 
             @Override

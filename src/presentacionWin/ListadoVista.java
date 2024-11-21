@@ -5,6 +5,7 @@
 package presentacionWin;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -32,13 +33,22 @@ public class ListadoVista extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloRecetas = new DefaultTableModel();
     private DefaultTableModel modeloSecciones = new DefaultTableModel();
     private Logica logicaTabla;
-    private List<Comida> susComidas=null;
+    protected List<Comida> susComidas=null;
+    protected List<Ingrediente> susIngredientes = null;
+    protected List<Receta> susRecetasDependientes = null;
+    protected List<Receta> susRecetasPendientes = null;
+    protected List<Comida> agregarComidas;
+    protected List<Receta> agregarRecetas;
+    protected List<Ingrediente> agregarIngredientes;
     /**
      * Creates new form ListaClienteVista
      */
     public ListadoVista(Logica logicaDatos) {
         initComponents();
         logicaTabla = logicaDatos;
+        agregarComidas = new ArrayList();
+        agregarRecetas = new ArrayList();
+        agregarIngredientes = new ArrayList();
     }
 
     /**
@@ -68,6 +78,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes = new javax.swing.JButton();
         botonSusRecetasDependientes = new javax.swing.JButton();
         botonSusRecetasPendientes = new javax.swing.JButton();
+        botonAgregar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -153,10 +164,32 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         });
 
         botonSusIngredientes.setText("SUS INGREDIENTES");
+        botonSusIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSusIngredientesActionPerformed(evt);
+            }
+        });
 
         botonSusRecetasDependientes.setText("SUS RECETAS DEPENDIENTES");
+        botonSusRecetasDependientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSusRecetasDependientesActionPerformed(evt);
+            }
+        });
 
         botonSusRecetasPendientes.setText("SUS RECETAS PENDIENTES");
+        botonSusRecetasPendientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSusRecetasPendientesActionPerformed(evt);
+            }
+        });
+
+        botonAgregar.setText("AGREGAR");
+        botonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -174,6 +207,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(botonSusIngredientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(botonSusRecetasDependientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(botonSusRecetasPendientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -186,14 +220,6 @@ public class ListadoVista extends javax.swing.JInternalFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(botonSusComidas)
-                        .addGap(59, 59, 59)
-                        .addComponent(botonSusIngredientes)
-                        .addGap(64, 64, 64)
-                        .addComponent(botonSusRecetasDependientes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonSusRecetasPendientes))
                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
@@ -223,7 +249,17 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                                     .addComponent(buscador2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addGap(28, 28, 28)
-                                    .addComponent(filtroSecciones))))))
+                                    .addComponent(filtroSecciones)))))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(botonSusComidas)
+                        .addGap(30, 30, 30)
+                        .addComponent(botonSusIngredientes)
+                        .addGap(34, 34, 34)
+                        .addComponent(botonSusRecetasDependientes)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonSusRecetasPendientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonAgregar)))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -252,7 +288,8 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                     .addComponent(botonSusComidas)
                     .addComponent(botonSusIngredientes)
                     .addComponent(botonSusRecetasDependientes)
-                    .addComponent(botonSusRecetasPendientes))
+                    .addComponent(botonSusRecetasPendientes)
+                    .addComponent(botonAgregar))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -344,7 +381,46 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                     modeloComidas.addRow(fila);
                 }
             }
+        }else if(susIngredientes != null){
+            borrarFilas();
+            for (Ingrediente ingrediente : susIngredientes) {
+                if(ingrediente.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila2 = new Object[]{
+                        ingrediente.getNombre(),
+                        ingrediente.getCosto(),
+                        ingrediente.getCantidadEnStock()
+                    };
+                    modeloIngredientes.addRow(fila2);
+                }
+            }
+        }else if(susRecetasDependientes!=null){
+            borrarFilas();
+            for (Receta receta : susRecetasDependientes) {
+                if(receta.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila3 = new Object[]{
+                        receta.getNombre(),
+                        receta.getTiempoCoccion(),
+                        receta.getTipo(),
+                        receta.getComplejidad()
+                    };
+                    modeloRecetas.addRow(fila3);
+                }
+            }
+        }else if(susRecetasPendientes != null){
+            borrarFilas();
+            for (Receta receta : susRecetasPendientes) {
+                if(receta.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila3 = new Object[]{
+                        receta.getNombre(),
+                        receta.getTiempoCoccion(),
+                        receta.getTipo(),
+                        receta.getComplejidad()
+                    };
+                    modeloRecetas.addRow(fila3);
+                }
+            }
         }
+        
     }//GEN-LAST:event_buscador1KeyReleased
 
     private void filtroComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroComidasActionPerformed
@@ -360,6 +436,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(false);
         botonSusRecetasDependientes.setEnabled(false);
         botonSusRecetasPendientes.setEnabled(false);
+        botonAgregar.setEnabled(true);
         borrarFilas();
         armarCabeceraComidas();
     }//GEN-LAST:event_filtroComidasActionPerformed
@@ -377,6 +454,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(false);
         botonSusRecetasDependientes.setEnabled(false);
         botonSusRecetasPendientes.setEnabled(false);
+        botonAgregar.setEnabled(false);
         borrarFilas();
         armarCabeceraClientes();
     }//GEN-LAST:event_filtroClientesActionPerformed
@@ -394,6 +472,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(false);
         botonSusRecetasDependientes.setEnabled(false);
         botonSusRecetasPendientes.setEnabled(false);
+        botonAgregar.setEnabled(true);
         borrarFilas();
         armarCabeceraIngredientes();
     }//GEN-LAST:event_filtroIngredientesActionPerformed
@@ -411,6 +490,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(false);
         botonSusRecetasDependientes.setEnabled(false);
         botonSusRecetasPendientes.setEnabled(false);
+        botonAgregar.setEnabled(false);
         borrarFilas();
         armarCabeceraPedidos();
     }//GEN-LAST:event_filtroPedidosActionPerformed
@@ -428,6 +508,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(true);
         botonSusRecetasDependientes.setEnabled(true);
         botonSusRecetasPendientes.setEnabled(false);
+        botonAgregar.setEnabled(true);
         borrarFilas();
         armarCabeceraRecetas();
         
@@ -446,6 +527,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         botonSusIngredientes.setEnabled(true);
         botonSusRecetasDependientes.setEnabled(false);
         botonSusRecetasPendientes.setEnabled(true);
+        botonAgregar.setEnabled(false);
         borrarFilas();
         armarCabeceraSecciones();
     }//GEN-LAST:event_filtroSeccionesActionPerformed
@@ -491,6 +573,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                     lr.botonSusIngredientes.setEnabled(false);
                     lr.botonSusRecetasDependientes.setEnabled(false);
                     lr.botonSusRecetasPendientes.setEnabled(false);
+                    lr.botonAgregar.setEnabled(false);
                     lr.susComidas = pedido1.getComidas();
 
                 }
@@ -536,26 +619,323 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_botonSusComidasActionPerformed
 
+    private void botonSusIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSusIngredientesActionPerformed
+        // TODO add your handling code here:
+        if(filtroRecetas.isSelected()){
+            Receta receta1;
+            int filaSelecionada = tablaRegistros.getSelectedRow();
+            if(filaSelecionada != -1){
+
+                String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+                receta1 = logicaTabla.obtenerReceta(nombre);
+                ListadoVista lr = new ListadoVista(logicaTabla);
+                lr.setVisible(true);
+                CasaDeComidasVista.obtenerEscritorio().add(lr);
+                int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+                int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+                lr.setLocation(x, y);
+                CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+                lr.addInternalFrameListener(new InternalFrameListener() {
+                    @Override
+                    public void internalFrameOpened(InternalFrameEvent e) {
+                        // Este método se llama cuando se abre el JInternalFrame
+                        lr.botonSusComidas.setEnabled(false);
+                        lr.botonSusIngredientes.setEnabled(false);
+                        lr.botonSusRecetasDependientes.setEnabled(false);
+                        lr.botonSusRecetasPendientes.setEnabled(false);
+                        lr.botonAgregar.setEnabled(false);
+                        lr.susIngredientes = receta1.getIngredientes();
+
+                    }
+
+                    @Override
+                    public void internalFrameClosing(InternalFrameEvent e) {
+                        // Este método se llama cuando se cierra el JInternalFrame
+
+
+                        // Realiza aquí las acciones que deseas cuando se cierra
+                        // por ejemplo, actualizaciones o notificaciones.
+                    }
+
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        // Este método se llama después de que el JInternalFrame se haya cerrado
+                    }
+
+                    @Override
+                    public void internalFrameIconified(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se minimiza
+                    }
+
+                    @Override
+                    public void internalFrameDeiconified(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+                    }
+
+                    @Override
+                    public void internalFrameActivated(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+                    }
+
+                    @Override
+                    public void internalFrameDeactivated(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+                    }
+                });
+
+            }else {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+            }
+        }else if (filtroSecciones.isSelected()){
+            SeccionCocina seccion1;
+            int filaSelecionada = tablaRegistros.getSelectedRow();
+            if(filaSelecionada != -1){
+
+                String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+                seccion1 = logicaTabla.obtenerSeccion(nombre);
+                ListadoVista lr = new ListadoVista(logicaTabla);
+                lr.setVisible(true);
+                CasaDeComidasVista.obtenerEscritorio().add(lr);
+                int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+                int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+                lr.setLocation(x, y);
+                CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+                lr.addInternalFrameListener(new InternalFrameListener() {
+                    @Override
+                    public void internalFrameOpened(InternalFrameEvent e) {
+                        // Este método se llama cuando se abre el JInternalFrame
+                        lr.botonSusComidas.setEnabled(false);
+                        lr.botonSusIngredientes.setEnabled(false);
+                        lr.botonSusRecetasDependientes.setEnabled(false);
+                        lr.botonSusRecetasPendientes.setEnabled(false);
+                        lr.botonAgregar.setEnabled(false);
+                        lr.susIngredientes = seccion1.getIngredientes().getIngredientes();
+
+                    }
+
+                    @Override
+                    public void internalFrameClosing(InternalFrameEvent e) {
+                        // Este método se llama cuando se cierra el JInternalFrame
+
+
+                        // Realiza aquí las acciones que deseas cuando se cierra
+                        // por ejemplo, actualizaciones o notificaciones.
+                    }
+
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        // Este método se llama después de que el JInternalFrame se haya cerrado
+                    }
+
+                    @Override
+                    public void internalFrameIconified(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se minimiza
+                    }
+
+                    @Override
+                    public void internalFrameDeiconified(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+                    }
+
+                    @Override
+                    public void internalFrameActivated(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+                    }
+
+                    @Override
+                    public void internalFrameDeactivated(InternalFrameEvent e) {
+                        // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+                    }
+                });
+
+            }else {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+            }
+        }
+    }//GEN-LAST:event_botonSusIngredientesActionPerformed
+
+    private void botonSusRecetasDependientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSusRecetasDependientesActionPerformed
+        // TODO add your handling code here:
+        Receta receta1;
+        int filaSelecionada = tablaRegistros.getSelectedRow();
+        if(filaSelecionada != -1){
+                
+            String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+            receta1 = logicaTabla.obtenerReceta(nombre);
+            ListadoVista lr = new ListadoVista(logicaTabla);
+            lr.setVisible(true);
+            CasaDeComidasVista.obtenerEscritorio().add(lr);
+            int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+            int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+            lr.setLocation(x, y);
+            CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+            lr.addInternalFrameListener(new InternalFrameListener() {
+                @Override
+                public void internalFrameOpened(InternalFrameEvent e) {
+                    // Este método se llama cuando se abre el JInternalFrame
+                    lr.botonSusComidas.setEnabled(false);
+                    lr.botonSusIngredientes.setEnabled(false);
+                    lr.botonSusRecetasDependientes.setEnabled(false);
+                    lr.botonSusRecetasPendientes.setEnabled(false);
+                    lr.botonAgregar.setEnabled(false);
+                    lr.susRecetasDependientes = receta1.getRecetasDependientes();
+
+                }
+
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e) {
+                    // Este método se llama cuando se cierra el JInternalFrame
+
+
+                    // Realiza aquí las acciones que deseas cuando se cierra
+                    // por ejemplo, actualizaciones o notificaciones.
+                }
+
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    // Este método se llama después de que el JInternalFrame se haya cerrado
+                }
+
+                @Override
+                public void internalFrameIconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se minimiza
+                }
+
+                @Override
+                public void internalFrameDeiconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+                }
+
+                @Override
+                public void internalFrameActivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+                }
+
+                @Override
+                public void internalFrameDeactivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+                }
+            });
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+        }
+    }//GEN-LAST:event_botonSusRecetasDependientesActionPerformed
+
+    private void botonSusRecetasPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSusRecetasPendientesActionPerformed
+        // TODO add your handling code here:
+        SeccionCocina seccion1;
+        int filaSelecionada = tablaRegistros.getSelectedRow();
+        if(filaSelecionada != -1){
+
+            String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+            seccion1 = logicaTabla.obtenerSeccion(nombre);
+            ListadoVista lr = new ListadoVista(logicaTabla);
+            lr.setVisible(true);
+            CasaDeComidasVista.obtenerEscritorio().add(lr);
+            int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+            int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+            lr.setLocation(x, y);
+            CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+            lr.addInternalFrameListener(new InternalFrameListener() {
+                @Override
+                public void internalFrameOpened(InternalFrameEvent e) {
+                    // Este método se llama cuando se abre el JInternalFrame
+                    lr.botonSusComidas.setEnabled(false);
+                    lr.botonSusIngredientes.setEnabled(false);
+                    lr.botonSusRecetasDependientes.setEnabled(false);
+                    lr.botonSusRecetasPendientes.setEnabled(false);
+                    lr.botonAgregar.setEnabled(false);
+                    lr.susRecetasPendientes = seccion1.getRecetasPendientes();
+
+                }
+
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e) {
+                    // Este método se llama cuando se cierra el JInternalFrame
+
+
+                    // Realiza aquí las acciones que deseas cuando se cierra
+                    // por ejemplo, actualizaciones o notificaciones.
+                }
+
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    // Este método se llama después de que el JInternalFrame se haya cerrado
+                }
+
+                @Override
+                public void internalFrameIconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se minimiza
+                }
+
+                @Override
+                public void internalFrameDeiconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+                }
+
+                @Override
+                public void internalFrameActivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+                }
+
+                @Override
+                public void internalFrameDeactivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+                }
+            });
+
+        }else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+        }
+    }//GEN-LAST:event_botonSusRecetasPendientesActionPerformed
+
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
+        // TODO add your handling code here:
+        Comida comida1;
+        Receta receta1;
+        Ingrediente ingrediente1;
+        int filaSelecionada = tablaRegistros.getSelectedRow();
+        if(filaSelecionada != -1){
+            if(filtroComidas.isSelected()){
+                String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+                comida1 = logicaTabla.obtenerComida(nombre);
+                agregarComidas.add(comida1);
+            }else if(filtroRecetas.isSelected()){
+                String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+                receta1 = logicaTabla.obtenerReceta(nombre);
+                agregarRecetas.add(receta1);
+            }else if(filtroIngredientes.isSelected()){
+                String nombre = tablaRegistros.getValueAt(filaSelecionada, 0).toString();
+                ingrediente1 = logicaTabla.obtenerIngrediente(nombre);
+                agregarIngredientes.add(ingrediente1);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+        }
+    }//GEN-LAST:event_botonAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonSusComidas;
-    private javax.swing.JButton botonSusIngredientes;
-    private javax.swing.JButton botonSusRecetasDependientes;
-    private javax.swing.JButton botonSusRecetasPendientes;
-    private javax.swing.JTextField buscador1;
-    private javax.swing.JTextField buscador2;
-    private javax.swing.JRadioButton filtroClientes;
-    private javax.swing.JRadioButton filtroComidas;
-    private javax.swing.JRadioButton filtroIngredientes;
-    private javax.swing.JRadioButton filtroPedidos;
-    private javax.swing.JRadioButton filtroRecetas;
-    private javax.swing.JRadioButton filtroSecciones;
+    protected javax.swing.JButton botonAgregar;
+    protected javax.swing.JButton botonSusComidas;
+    protected javax.swing.JButton botonSusIngredientes;
+    protected javax.swing.JButton botonSusRecetasDependientes;
+    protected javax.swing.JButton botonSusRecetasPendientes;
+    protected javax.swing.JTextField buscador1;
+    protected javax.swing.JTextField buscador2;
+    protected javax.swing.JRadioButton filtroClientes;
+    protected javax.swing.JRadioButton filtroComidas;
+    protected javax.swing.JRadioButton filtroIngredientes;
+    protected javax.swing.JRadioButton filtroPedidos;
+    protected javax.swing.JRadioButton filtroRecetas;
+    protected javax.swing.JRadioButton filtroSecciones;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaRegistros;
+    protected javax.swing.JTable tablaRegistros;
     // End of variables declaration//GEN-END:variables
     private void borrarFilas() {
         DefaultTableModel model = (DefaultTableModel) tablaRegistros.getModel();
