@@ -23,6 +23,7 @@ public class PoliticaLimitePedidos implements PoliticaAceptacion {
     public boolean acepta(Comida comida) {
         return stock < limite;
     }
+    @Override
     public String obtenerNombre(){
         return NOMBRE;
     }

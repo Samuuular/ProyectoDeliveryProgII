@@ -28,11 +28,17 @@ public class Pedido {
     public Pedido() {   
     }
     
+    public double getPrecio() {
+        return precio;
+    }
 
     //Metodos
+    public void setPrecio(double precio) {    
+        this.precio = precio;
+    }
 
     public void agregarComida(Comida comida) {
-            comidas.add(comida);
+        comidas.add(comida);
     }
 
     public void eliminarComida(Comida comida) {

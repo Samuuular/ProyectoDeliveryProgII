@@ -33,6 +33,15 @@ public class Comida implements Serializable{
     public void setReceta(Receta receta) {
         this.receta = receta;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
     
     public double calcularPrecio() {
         precio = 0;

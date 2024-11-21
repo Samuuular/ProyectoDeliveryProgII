@@ -16,6 +16,7 @@ public class PoliticaPostres implements PoliticaAceptacion {
     public boolean acepta(Comida comida) {
         return comida.getReceta().getTipo().equals("postre");
     }
+    @Override
     public String obtenerNombre(){
         return NOMBRE;
     }

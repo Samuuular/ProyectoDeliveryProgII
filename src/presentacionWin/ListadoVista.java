@@ -6,7 +6,13 @@ package presentacionWin;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocio.Cliente;
+import logicaNegocio.Comida;
+import logicaNegocio.Ingrediente;
 import logicaNegocio.Logica;
+import logicaNegocio.Pedido;
+import logicaNegocio.Receta;
+import logicaNegocio.SeccionCocina;
 
 /**
  *
@@ -80,18 +86,54 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         });
 
         filtroComidas.setText("COMIDAS");
+        filtroComidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroComidasActionPerformed(evt);
+            }
+        });
 
         filtroClientes.setText("CLIENTES");
+        filtroClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroClientesActionPerformed(evt);
+            }
+        });
 
         filtroIngredientes.setText("INGREDIENTES");
+        filtroIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroIngredientesActionPerformed(evt);
+            }
+        });
 
         filtroPedidos.setText("PEDIDOS");
+        filtroPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroPedidosActionPerformed(evt);
+            }
+        });
 
         filtroRecetas.setText("RECETAS");
+        filtroRecetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroRecetasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("BUSCAR POR ID:");
 
+        buscador2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscador2KeyReleased(evt);
+            }
+        });
+
         filtroSecciones.setText("SECCIONES");
+        filtroSecciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroSeccionesActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -188,7 +230,153 @@ public class ListadoVista extends javax.swing.JInternalFrame {
 
     private void buscador1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscador1KeyReleased
         // TODO add your handling code here:
+        if(filtroComidas.isSelected()){
+            borrarFilas();
+            for (Comida comida : logicaTabla.loadComidas()) {
+                if(comida.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila = new Object[]{
+                        comida.getNombre(),
+                        comida.getReceta(),
+                        comida.getPrecio()
+                    };
+                    modeloComidas.addRow(fila);
+                }
+            }
+        }else if(filtroClientes.isSelected()){
+            borrarFilas();
+            for (Cliente cliente : logicaTabla.loadClientes()) {
+                if(cliente.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila1 = new Object[]{
+                        cliente.getId(),
+                        cliente.getNombre(),
+                        cliente.getDireccion()
+                    };
+                    modeloClientes.addRow(fila1);
+                }
+            }
+        }else if(filtroIngredientes.isSelected()){
+            borrarFilas();
+            for (Ingrediente ingrediente : logicaTabla.loadIngredientes()) {
+                if(ingrediente.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila2 = new Object[]{
+                        ingrediente.getNombre(),
+                        ingrediente.getCosto(),
+                        ingrediente.getCantidadEnStock()
+                    };
+                    modeloIngredientes.addRow(fila2);
+                }
+            }
+        }else if(filtroRecetas.isSelected()){
+            borrarFilas();
+            for (Receta receta : logicaTabla.loadRecetas()) {
+                if(receta.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila3 = new Object[]{
+                        receta.getNombre(),
+                        receta.getTiempoCoccion(),
+                        receta.getTipo(),
+                        receta.getComplejidad()
+                    };
+                    modeloRecetas.addRow(fila3);
+                }
+            }
+        }else if(filtroSecciones.isSelected()){
+            borrarFilas();
+            for (SeccionCocina seccion : logicaTabla.loadSeccionesCocinas()) {
+                if(seccion.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila4 = new Object[]{
+                        seccion.getNombre(),
+                        seccion.getPolitica().obtenerNombre()
+                    };
+                    modeloSecciones.addRow(fila4);
+                }
+            }
+        }
     }//GEN-LAST:event_buscador1KeyReleased
+
+    private void filtroComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroComidasActionPerformed
+        // TODO add your handling code here:
+        filtroClientes.setSelected(false);
+        filtroIngredientes.setSelected(false);
+        filtroPedidos.setSelected(false);
+        filtroRecetas.setSelected(false);
+        filtroSecciones.setSelected(false);
+        borrarFilas();
+        armarCabeceraComidas();
+    }//GEN-LAST:event_filtroComidasActionPerformed
+
+    private void filtroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroClientesActionPerformed
+        // TODO add your handling code here:
+        filtroComidas.setSelected(false);
+        filtroIngredientes.setSelected(false);
+        filtroPedidos.setSelected(false);
+        filtroRecetas.setSelected(false);
+        filtroSecciones.setSelected(false);
+        borrarFilas();
+        armarCabeceraClientes();
+    }//GEN-LAST:event_filtroClientesActionPerformed
+
+    private void filtroIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroIngredientesActionPerformed
+        // TODO add your handling code here:
+        filtroComidas.setSelected(false);
+        filtroClientes.setSelected(false);
+        filtroPedidos.setSelected(false);
+        filtroRecetas.setSelected(false);
+        filtroSecciones.setSelected(false);
+        borrarFilas();
+        armarCabeceraIngredientes();
+    }//GEN-LAST:event_filtroIngredientesActionPerformed
+
+    private void filtroPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroPedidosActionPerformed
+        // TODO add your handling code here:
+        filtroComidas.setSelected(false);
+        filtroClientes.setSelected(false);
+        filtroIngredientes.setSelected(false);
+        filtroRecetas.setSelected(false);
+        filtroSecciones.setSelected(false);
+        borrarFilas();
+        armarCabeceraPedidos();
+    }//GEN-LAST:event_filtroPedidosActionPerformed
+
+    private void filtroRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroRecetasActionPerformed
+        // TODO add your handling code here:
+        filtroComidas.setSelected(false);
+        filtroClientes.setSelected(false);
+        filtroIngredientes.setSelected(false);
+        filtroPedidos.setSelected(false);
+        filtroSecciones.setSelected(false);
+        borrarFilas();
+        armarCabeceraRecetas();
+        
+    }//GEN-LAST:event_filtroRecetasActionPerformed
+
+    private void filtroSeccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroSeccionesActionPerformed
+        // TODO add your handling code here:
+        filtroComidas.setSelected(false);
+        filtroClientes.setSelected(false);
+        filtroIngredientes.setSelected(false);
+        filtroPedidos.setSelected(false);
+        filtroRecetas.setSelected(false);
+        borrarFilas();
+        armarCabeceraSecciones();
+    }//GEN-LAST:event_filtroSeccionesActionPerformed
+
+    private void buscador2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscador2KeyReleased
+        // TODO add your handling code here:
+        if(filtroPedidos.isSelected()){
+            borrarFilas();
+            for (Pedido pedido : logicaTabla.loadPedidos()) {
+                if(String.valueOf(pedido.getCliente().getId()).toUpperCase().startsWith(buscador2.getText().toUpperCase())){
+                    Object[] fila5 = new Object[]{
+                        pedido.getCliente().getId(),
+                        pedido.getCliente().getNombre(),
+                        pedido.getPrecio(),
+                        pedido.getPrecio()
+                    };
+                    modeloPedidos.addRow(fila5);
+                }
+            }
+        }
+    }//GEN-LAST:event_buscador2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -247,7 +435,8 @@ public class ListadoVista extends javax.swing.JInternalFrame {
     private void armarCabeceraPedidos(){
         modeloPedidos.setColumnCount(0);
         modeloPedidos.addColumn("ID");
-        modeloPedidos.addColumn("Comidas");
+        modeloPedidos.addColumn("Nombre Cliente");
+        //modeloPedidos.addColumn("Comidas");
         modeloPedidos.addColumn("Precio");
         modeloPedidos.addColumn("Estado");
         tablaRegistros.setModel(modeloPedidos);
@@ -256,27 +445,37 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
+        //tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
     }
     private void armarCabeceraRecetas(){
         modeloRecetas.setColumnCount(0);
         modeloRecetas.addColumn("Nombre");
-        modeloRecetas.addColumn("Ingredientes");
+        //modeloRecetas.addColumn("Ingredientes");
         modeloRecetas.addColumn("Tiempo de Coccion");
         modeloRecetas.addColumn("Tipo");
         modeloRecetas.addColumn("Complejidad");
-        modeloRecetas.addColumn("Recetas Dependientes");
+        //modeloRecetas.addColumn("Recetas Dependientes");
         tablaRegistros.setModel(modeloRecetas);
         tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(5).setPreferredWidth(150);
+        //tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
+        //tablaRegistros.getColumnModel().getColumn(5).setPreferredWidth(150);
     }
     private void armarCabeceraSecciones(){
         modeloSecciones.setColumnCount(0);
-        modeloSecciones.addColumn(rootPane);
+        modeloSecciones.addColumn("Nombre");
+        modeloSecciones.addColumn("Politica");
+        modeloSecciones.addColumn("Ingredientes");
+        modeloSecciones.addColumn("Recetas Pendientes");
+        tablaRegistros.setModel(modeloSecciones);
+        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
     }
 
 }

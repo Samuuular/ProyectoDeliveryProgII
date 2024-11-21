@@ -12,4 +12,5 @@ import java.util.Map;
  */
 public interface PoliticaAceptacion {
     boolean acepta(Comida comida);
+    String obtenerNombre();
 }

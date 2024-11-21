@@ -159,26 +159,41 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="COMIDAS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroComidasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="filtroClientes">
           <Properties>
             <Property name="text" type="java.lang.String" value="CLIENTES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroClientesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="filtroIngredientes">
           <Properties>
             <Property name="text" type="java.lang.String" value="INGREDIENTES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroIngredientesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="filtroPedidos">
           <Properties>
             <Property name="text" type="java.lang.String" value="PEDIDOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroPedidosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="filtroRecetas">
           <Properties>
             <Property name="text" type="java.lang.String" value="RECETAS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroRecetasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -186,11 +201,17 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="buscador2">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscador2KeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="filtroSecciones">
           <Properties>
             <Property name="text" type="java.lang.String" value="SECCIONES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroSeccionesActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

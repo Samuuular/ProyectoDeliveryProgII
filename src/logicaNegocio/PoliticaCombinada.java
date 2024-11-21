@@ -24,6 +24,7 @@ public class PoliticaCombinada implements PoliticaAceptacion {
     public boolean acepta(Comida comida) {
         return politica1.acepta(comida) && politica2.acepta(comida);
     }
+    @Override
     public String obtenerNombre(){
         return NOMBRE;
     }

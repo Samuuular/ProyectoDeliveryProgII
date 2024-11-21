@@ -16,6 +16,7 @@ public class PoliticaGourmet implements PoliticaAceptacion {
     public boolean acepta(Comida comida) {
         return comida.getReceta().getTipo().equalsIgnoreCase("gourmet");
     }
+    @Override
     public String obtenerNombre(){
         return NOMBRE;
     }
