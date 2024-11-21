@@ -20,9 +20,15 @@ public class GestionIngredientes {
         this.ingredientes = new ArrayList<>();
     }
 
+    public GestionIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
     public void registrarIngrediente(Ingrediente ingrediente) {
         ingredientes.add(ingrediente);
     }
+
+   
 
     public List<Ingrediente> getIngredientes() {
         return ingredientes;
