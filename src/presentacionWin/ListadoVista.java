@@ -4,7 +4,12 @@
  */
 package presentacionWin;
 
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocio.Cliente;
 import logicaNegocio.Comida;
@@ -27,6 +32,7 @@ public class ListadoVista extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloRecetas = new DefaultTableModel();
     private DefaultTableModel modeloSecciones = new DefaultTableModel();
     private Logica logicaTabla;
+    private List<Comida> susComidas=null;
     /**
      * Creates new form ListaClienteVista
      */
@@ -58,6 +64,10 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         buscador2 = new javax.swing.JTextField();
         filtroSecciones = new javax.swing.JRadioButton();
+        botonSusComidas = new javax.swing.JButton();
+        botonSusIngredientes = new javax.swing.JButton();
+        botonSusRecetasDependientes = new javax.swing.JButton();
+        botonSusRecetasPendientes = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -135,6 +145,19 @@ public class ListadoVista extends javax.swing.JInternalFrame {
             }
         });
 
+        botonSusComidas.setText("SUS COMIDAS");
+        botonSusComidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSusComidasActionPerformed(evt);
+            }
+        });
+
+        botonSusIngredientes.setText("SUS INGREDIENTES");
+
+        botonSusRecetasDependientes.setText("SUS RECETAS DEPENDIENTES");
+
+        botonSusRecetasPendientes.setText("SUS RECETAS PENDIENTES");
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -147,6 +170,10 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(buscador2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(filtroSecciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonSusComidas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonSusIngredientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonSusRecetasDependientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonSusRecetasPendientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -158,36 +185,45 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                 .addGap(409, 409, 409))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(filtroComidas)
-                                .addGap(29, 29, 29)))
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(filtroClientes)
-                                .addGap(30, 30, 30)
-                                .addComponent(filtroIngredientes)
-                                .addGap(28, 28, 28)
-                                .addComponent(filtroPedidos)
-                                .addGap(28, 28, 28)
-                                .addComponent(filtroRecetas))
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(buscador1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)))
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(buscador2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(filtroSecciones)))))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(botonSusComidas)
+                        .addGap(59, 59, 59)
+                        .addComponent(botonSusIngredientes)
+                        .addGap(64, 64, 64)
+                        .addComponent(botonSusRecetasDependientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonSusRecetasPendientes))
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                                    .addComponent(filtroComidas)
+                                    .addGap(29, 29, 29)))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addComponent(filtroClientes)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(filtroIngredientes)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(filtroPedidos)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(filtroRecetas))
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addComponent(buscador1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3)))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(buscador2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(filtroSecciones))))))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -211,7 +247,13 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                     .addComponent(filtroSecciones))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSusComidas)
+                    .addComponent(botonSusIngredientes)
+                    .addComponent(botonSusRecetasDependientes)
+                    .addComponent(botonSusRecetasPendientes))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +332,18 @@ public class ListadoVista extends javax.swing.JInternalFrame {
                     modeloSecciones.addRow(fila4);
                 }
             }
+        }else if(susComidas != null){
+            borrarFilas();
+            for (Comida comida : susComidas) {
+                if(comida.getNombre().toUpperCase().startsWith(buscador1.getText().toUpperCase())){
+                    Object[] fila = new Object[]{
+                        comida.getNombre(),
+                        comida.getReceta(),
+                        comida.getPrecio()
+                    };
+                    modeloComidas.addRow(fila);
+                }
+            }
         }
     }//GEN-LAST:event_buscador1KeyReleased
 
@@ -300,6 +354,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroPedidos.setSelected(false);
         filtroRecetas.setSelected(false);
         filtroSecciones.setSelected(false);
+        buscador1.setEditable(true);
+        buscador1.setBackground(Color.WHITE);
+        botonSusComidas.setEnabled(false);
+        botonSusIngredientes.setEnabled(false);
+        botonSusRecetasDependientes.setEnabled(false);
+        botonSusRecetasPendientes.setEnabled(false);
         borrarFilas();
         armarCabeceraComidas();
     }//GEN-LAST:event_filtroComidasActionPerformed
@@ -311,6 +371,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroPedidos.setSelected(false);
         filtroRecetas.setSelected(false);
         filtroSecciones.setSelected(false);
+        buscador1.setEditable(true);
+        buscador1.setBackground(Color.WHITE);
+        botonSusComidas.setEnabled(false);
+        botonSusIngredientes.setEnabled(false);
+        botonSusRecetasDependientes.setEnabled(false);
+        botonSusRecetasPendientes.setEnabled(false);
         borrarFilas();
         armarCabeceraClientes();
     }//GEN-LAST:event_filtroClientesActionPerformed
@@ -322,6 +388,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroPedidos.setSelected(false);
         filtroRecetas.setSelected(false);
         filtroSecciones.setSelected(false);
+        buscador1.setEditable(true);
+        buscador1.setBackground(Color.WHITE);
+        botonSusComidas.setEnabled(false);
+        botonSusIngredientes.setEnabled(false);
+        botonSusRecetasDependientes.setEnabled(false);
+        botonSusRecetasPendientes.setEnabled(false);
         borrarFilas();
         armarCabeceraIngredientes();
     }//GEN-LAST:event_filtroIngredientesActionPerformed
@@ -333,6 +405,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroIngredientes.setSelected(false);
         filtroRecetas.setSelected(false);
         filtroSecciones.setSelected(false);
+        buscador1.setEditable(false);
+        buscador1.setBackground(Color.LIGHT_GRAY);
+        botonSusComidas.setEnabled(true);
+        botonSusIngredientes.setEnabled(false);
+        botonSusRecetasDependientes.setEnabled(false);
+        botonSusRecetasPendientes.setEnabled(false);
         borrarFilas();
         armarCabeceraPedidos();
     }//GEN-LAST:event_filtroPedidosActionPerformed
@@ -344,6 +422,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroIngredientes.setSelected(false);
         filtroPedidos.setSelected(false);
         filtroSecciones.setSelected(false);
+        buscador1.setEditable(true);
+        buscador1.setBackground(Color.WHITE);
+        botonSusComidas.setEnabled(false);
+        botonSusIngredientes.setEnabled(true);
+        botonSusRecetasDependientes.setEnabled(true);
+        botonSusRecetasPendientes.setEnabled(false);
         borrarFilas();
         armarCabeceraRecetas();
         
@@ -356,6 +440,12 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         filtroIngredientes.setSelected(false);
         filtroPedidos.setSelected(false);
         filtroRecetas.setSelected(false);
+        buscador1.setEditable(true);
+        buscador1.setBackground(Color.WHITE);
+        botonSusComidas.setEnabled(false);
+        botonSusIngredientes.setEnabled(true);
+        botonSusRecetasDependientes.setEnabled(false);
+        botonSusRecetasPendientes.setEnabled(true);
         borrarFilas();
         armarCabeceraSecciones();
     }//GEN-LAST:event_filtroSeccionesActionPerformed
@@ -378,8 +468,80 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_buscador2KeyReleased
 
+    private void botonSusComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSusComidasActionPerformed
+        // TODO add your handling code here:
+        Pedido pedido1;
+        int filaSelecionada = tablaRegistros.getSelectedRow();
+        if(filaSelecionada != -1){
+                
+            int id = Integer.parseInt(tablaRegistros.getValueAt(filaSelecionada, 0).toString());
+            pedido1 = logicaTabla.obtenerPedido(id);
+            ListadoVista lr = new ListadoVista(logicaTabla);
+            lr.setVisible(true);
+            CasaDeComidasVista.obtenerEscritorio().add(lr);
+            int x = (CasaDeComidasVista.obtenerEscritorio().getWidth() - lr.getWidth()) / 2;
+            int y = (CasaDeComidasVista.obtenerEscritorio().getHeight() - lr.getHeight()) / 2;
+            lr.setLocation(x, y);
+            CasaDeComidasVista.obtenerEscritorio().moveToFront(lr);
+            lr.addInternalFrameListener(new InternalFrameListener() {
+                @Override
+                public void internalFrameOpened(InternalFrameEvent e) {
+                    // Este método se llama cuando se abre el JInternalFrame
+                    lr.botonSusComidas.setEnabled(false);
+                    lr.botonSusIngredientes.setEnabled(false);
+                    lr.botonSusRecetasDependientes.setEnabled(false);
+                    lr.botonSusRecetasPendientes.setEnabled(false);
+                    lr.susComidas = pedido1.getComidas();
+
+                }
+
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e) {
+                    // Este método se llama cuando se cierra el JInternalFrame
+
+
+                    // Realiza aquí las acciones que deseas cuando se cierra
+                    // por ejemplo, actualizaciones o notificaciones.
+                }
+
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    // Este método se llama después de que el JInternalFrame se haya cerrado
+                }
+
+                @Override
+                public void internalFrameIconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se minimiza
+                }
+
+                @Override
+                public void internalFrameDeiconified(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se restaura desde la minimización
+                }
+
+                @Override
+                public void internalFrameActivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se activa (gana el foco)
+                }
+
+                @Override
+                public void internalFrameDeactivated(InternalFrameEvent e) {
+                    // Este método se llama cuando el JInternalFrame se desactiva (pierde el foco)
+                }
+            });
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila de la tabla.");
+        }
+        
+    }//GEN-LAST:event_botonSusComidasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSusComidas;
+    private javax.swing.JButton botonSusIngredientes;
+    private javax.swing.JButton botonSusRecetasDependientes;
+    private javax.swing.JButton botonSusRecetasPendientes;
     private javax.swing.JTextField buscador1;
     private javax.swing.JTextField buscador2;
     private javax.swing.JRadioButton filtroClientes;
@@ -405,10 +567,10 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         modeloComidas.addColumn("Receta");
         modeloComidas.addColumn("Precio");
         tablaRegistros.setModel(modeloComidas);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);*/
     }
     private void armarCabeceraClientes(){
         modeloClientes.setColumnCount(0);
@@ -416,10 +578,10 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         modeloClientes.addColumn("Nombre");
         modeloClientes.addColumn("Direccion");
         tablaRegistros.setModel(modeloClientes);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(200);*/
     }
     private void armarCabeceraIngredientes(){
         modeloIngredientes.setColumnCount(0);
@@ -427,25 +589,25 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         modeloIngredientes.addColumn("Costo");
         modeloIngredientes.addColumn("Stock");
         tablaRegistros.setModel(modeloIngredientes);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);*/
     }
     private void armarCabeceraPedidos(){
         modeloPedidos.setColumnCount(0);
-        modeloPedidos.addColumn("ID");
+        modeloPedidos.addColumn("ID Cliente");
         modeloPedidos.addColumn("Nombre Cliente");
         //modeloPedidos.addColumn("Comidas");
         modeloPedidos.addColumn("Precio");
         modeloPedidos.addColumn("Estado");
         tablaRegistros.setModel(modeloPedidos);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
-        //tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
+        //tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);*/
     }
     private void armarCabeceraRecetas(){
         modeloRecetas.setColumnCount(0);
@@ -456,11 +618,11 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         modeloRecetas.addColumn("Complejidad");
         //modeloRecetas.addColumn("Recetas Dependientes");
         tablaRegistros.setModel(modeloRecetas);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);*/
         //tablaRegistros.getColumnModel().getColumn(4).setPreferredWidth(150);
         //tablaRegistros.getColumnModel().getColumn(5).setPreferredWidth(150);
     }
@@ -468,14 +630,14 @@ public class ListadoVista extends javax.swing.JInternalFrame {
         modeloSecciones.setColumnCount(0);
         modeloSecciones.addColumn("Nombre");
         modeloSecciones.addColumn("Politica");
-        modeloSecciones.addColumn("Ingredientes");
-        modeloSecciones.addColumn("Recetas Pendientes");
+        //modeloSecciones.addColumn("Ingredientes");
+        //modeloSecciones.addColumn("Recetas Pendientes");
         tablaRegistros.setModel(modeloSecciones);
-        tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        /*tablaRegistros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaRegistros.getColumnModel().getColumn(0).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(1).setPreferredWidth(150);
         tablaRegistros.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tablaRegistros.getColumnModel().getColumn(3).setPreferredWidth(150);*/
     }
 
 }

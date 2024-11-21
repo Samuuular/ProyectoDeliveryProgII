@@ -61,4 +61,13 @@ public class Logica {
         return datos.loadSeccionesCocinas();
     }
     
+    public Pedido obtenerPedido(int id){
+        Pedido pedidoaux = null;
+        for (Pedido pedido : datos.loadPedidos()) {
+            if(pedido.getCliente().getId()==id){
+                pedidoaux = pedido;
+            }
+        }
+        return pedidoaux;
+    }
 }
